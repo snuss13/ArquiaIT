@@ -1,0 +1,108 @@
+﻿@model FG.Models.FGAdmin
+
+@{
+    ViewBag.Title = "Index";
+}
+
+    <h2>Banners</h2>
+
+
+    @using (Html.BeginForm("SaveBanners", "Banners", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <div class="form-group">
+                @Html.HiddenFor(model => model.Id)
+                @Html.HiddenFor(model => model.NoticiasBanner)
+                @Html.Label("Banner Noticias", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <span onclick="loadImage('', 'Noticias')" class="glyphicon glyphicon-remove" style="cursor:pointer" title="Elminar"></span>&nbsp;&nbsp;
+                    <span class="glyphicon glyphicon-file" title="Seleccionar" style="cursor:pointer" onclick="$('#UploadBannerNoticias').click()"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Banner Noticias Preview", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.Raw("<img id=\"imgBannerNoticias\" src=\"data:image/png;base64," + @Model.NoticiasBanner + "\" class=\"img-responsive center-block\" />")
+                    <input type="file" id="UploadBannerNoticias" name="UploadBannerNoticias" accept="image/*" style="display:none" onchange="loadImage(event,'Noticias')" />
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                @Html.HiddenFor(model => model.SponsorsBanner)
+                @Html.Label("Banner Sponsors", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <span onclick="loadImage('', 'Sponsors')" class="glyphicon glyphicon-remove" style="cursor:pointer" title="Elminar"></span>&nbsp;&nbsp;
+                    <span class="glyphicon glyphicon-file" title="Seleccionar" style="cursor:pointer" onclick="$('#UploadBannerSponsors').click()"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Banner Sponsors Preview", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.Raw("<img id=\"imgBannerSponsors\" src=\"data:image/png;base64," + @Model.SponsorsBanner + "\" class=\"img-responsive center-block\" />")
+                    <input type="file" id="UploadBannerSponsors" name="UploadBannerSponsors" accept="image/*" style="display:none" onchange="loadImage(event,'Sponsors')" />
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                @Html.HiddenFor(model => model.IntegrantesBanner)
+                @Html.Label("Banner Integrantes", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <span onclick="loadImage('', 'Integrantes')" class="glyphicon glyphicon-remove" style="cursor:pointer" title="Elminar"></span>&nbsp;&nbsp;
+                    <span class="glyphicon glyphicon-file" title="Seleccionar" style="cursor:pointer" onclick="$('#UploadBannerIntegrantes').click()"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Banner Integrantes Preview", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.Raw("<img id=\"imgBannerIntegrantes\" src=\"data:image/png;base64," + @Model.IntegrantesBanner + "\" class=\"img-responsive center-block\" />")
+                    <input type="file" id="UploadBannerIntegrantes" name="UploadBannerIntegrantes" accept="image/*" style="display:none" onchange="loadImage(event,'Integrantes')" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Guardar" class="btn btn-default" />
+                    | @Html.ActionLink("Cancelar", "Index", "Home")
+                </div>
+            </div>
+
+
+        </div>
+
+    }
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+        <script>
+        var loadImage = function (event, which) {
+            if (event != '' && event.target.files.length > 0) {
+                $('#imgBanner' + which).show();
+                document.getElementById('imgBanner' + which).src = URL.createObjectURL(event.target.files[0]);
+            }
+            else {
+                $('#' + which + 'Banner').val(null); // hidden field
+                $('#UploadBanner' + which).val(null); //input field
+
+                //image control
+                document.getElementById('imgBanner' + which).src = '';
+                $('#imgBanner' + which).hide();
+            }
+        };
+
+        if ($('#NoticiasBanner').val() == '')
+            loadImage('', 'Noticias');
+
+        if ($('#SponsorsBanner').val() == '')
+            loadImage('', 'Sponsors');
+
+        if ($('#IntegrantesBanner').val() == '')
+            loadImage('', 'Integrantes');
+
+        </script>
+    }

@@ -1,0 +1,19 @@
+﻿
+<h2>Login</h2>
+@using (Html.BeginForm("Login", "Usuarios", FormMethod.Post))
+{
+    <label>Pasword:</label>
+    <input type="password" id="password" name="password" />
+    <input type="submit" />
+    <hr />
+    <label style="color:red;">
+        @if (!String.IsNullOrEmpty(ViewBag.LogginAttempts))
+        {
+            @Html.Raw("Contraseña incorrecta.  Cantidad de intentos fallidos: ")   
+        }
+        @ViewBag.LogginAttempts
+    </label>
+    
+    
+}
+

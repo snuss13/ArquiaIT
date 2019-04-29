@@ -1,0 +1,95 @@
+﻿@model FG.Models.Noticia
+
+@{
+    ViewBag.Title = "Eliminar";
+}
+
+<h4>Eliminar Noticia</h4>
+
+<hr />
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Volanta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Volanta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Titulo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Titulo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Subtitulo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Subtitulo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImagenPortada)
+        </dt>
+
+        <dd>
+            @if (!string.IsNullOrEmpty(@Model.ImagenPortada))
+            { 
+                @Html.Raw("<img id=\"img\" src=\"data:image/png;base64," + @Model.ImagenPortada + "\" class=\"img-responsive center-block\" />")
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImagenNoticia)
+        </dt>
+
+        <dd>
+            @if (!string.IsNullOrEmpty(@Model.ImagenNoticia))
+            {
+                @Html.Raw("<img id=\"img\" src=\"data:image/png;base64," + @Model.ImagenNoticia + "\" class=\"img-responsive center-block\" />")
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pie)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pie)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cuerpo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cuerpo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeStamp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimeStamp)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn btn-default" /> 
+            |@Html.ActionLink("Cancelar", "Index")
+        </div>
+    }
+</div>
+<hr />
+
+

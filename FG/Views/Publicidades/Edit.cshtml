@@ -1,0 +1,57 @@
+﻿@model FG.Models.Publicidad
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Editar Publicidad</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Url, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Url, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Url, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Guardar" class="btn btn-default" /> | @Html.ActionLink("Cancelar", "Index")
+            </div>
+        </div>
+    </div>
+    <hr />
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+<script>
+    var loadFile = function (event) {
+        if (event != '' && event.target.files.length > 0) {
+            $('#img').show();
+            document.getElementById('img').src = URL.createObjectURL(event.target.files[0]);
+        }
+        else {
+            $('#UploadFile').val('');
+            document.getElementById('img').src = '';
+            $("#Banner").val('');
+            $('#img').hide();
+        }
+    };
+
+    if ($("#Banner").val() == '')
+        $('#img').hide();
+
+
+</script>
+
+}

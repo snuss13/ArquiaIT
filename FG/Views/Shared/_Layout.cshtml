@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Furious Gaming</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        .Open-Sans-400 {
+            font-family: 'Open Sans' !important;
+            font-style: normal;
+            font-weight: 400;
+        }
+
+        .navbar-brand > img{ margin-top: 0px; max-width: 50px; padding: 0; }
+
+        
+    </style>
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top" style="border-bottom:3px solid red">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="~/"><img src="~/Content/FuriousGamingLogo.png" height="50" width="50" /></a>
+            </div>
+
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="~/Home">Home</a></li>
+                    <li><a href="~/Noticias">Noticias</a></li>
+                    <li><a href="~/Integrantes">Integrantes</a> </li>
+                    <li><a href="~/Sponsors">Sponsors</a> </li>
+                    @if (Session["sessionStore"] != null && (Session["sessionStore"] as FG.Models.SessionStore).Usuario != null &&
+                        (Session["sessionStore"] as FG.Models.SessionStore).Usuario.Rol == "Colaborador")
+                    {
+                        <li><a href="~/Usuarios/LogOff">Volver Modo Usuario</a></li>
+                    }
+                    @if (Session["sessionStore"] != null && (Session["sessionStore"] as FG.Models.SessionStore).Usuario != null && 
+                        (Session["sessionStore"] as FG.Models.SessionStore).Usuario.Rol=="Administrador")
+                    {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administrador<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="~/Usuarios">Usuarios</a></li>
+                                <li><a href="~/Carrusels">Carrusel</a></li>
+                                <li><a href="~/Publicidades">Publicidad</a></li>
+                                <li><a href="~/Banners">Banners</a></li>
+                                <li><a href="~/Institucional/Edit">Institucional</a></li>
+                                <li class="divider"></li>
+                                <li><a href="~/Usuarios/SetNewPassword">Cambiar Password</a></li>
+                                <li class="divider"></li>
+                                <li><a href="~/Usuarios/LogOff">Volver Modo Usuario</a></li>
+                            </ul>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        <div class="row">
+            <div class="col-md-8">
+                @RenderBody()
+            </div>
+            <div class="col-md-4">
+                @{Html.RenderAction("SideBarView", "Sponsors");}
+            </div>
+        </div>
+        <footer style="background-color:black">
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    @{Html.RenderAction("Index", "Institucional");}
+                </div>
+            </div>
+
+        </footer>
+        <p style="width:100%;text-align:center; vertical-align:bottom;"><a href="~/Usuarios/Login">&copy; @DateTime.Now.Year - Furious Gaming Team</a></p>
+        <br />
+        
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

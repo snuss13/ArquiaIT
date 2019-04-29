@@ -1,0 +1,142 @@
+﻿@model FG.Models.Noticia
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Editar Noticia</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Volanta, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Volanta, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Volanta, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Titulo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Titulo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Titulo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Subtitulo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Subtitulo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Subtitulo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.HiddenFor(model => model.ImagenPortada)
+            @Html.LabelFor(model => model.ImagenPortada, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <span onclick="loadFilePortada('')" class="glyphicon glyphicon-remove" style="cursor:pointer" title="Elminar"></span>&nbsp;&nbsp;
+                <span class="glyphicon glyphicon-file" title="Elegir Foto" style="cursor:pointer" onclick="$('#UploadImagePortada').click()"></span>
+                @Html.ValidationMessageFor(model => model.ImagenPortada, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Imagen Portada Preview", htmlAttributes: new { @class = "control-label col-md-2" })
+           <div class="col-md-10">
+                @Html.Raw("<img id=\"imgPortada\" src=\"data:image/png;base64," + @Model.ImagenPortada + "\" class=\"img-responsive center-block\" />")
+                <input type="file" id="UploadImagePortada" name="UploadImagePortada" accept="image/*" style="display:none" onchange="loadFilePortada(event)" />
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.HiddenFor(model => model.ImagenNoticia)
+            @Html.LabelFor(model => model.ImagenNoticia, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <span onclick="loadFileNoticia('')" class="glyphicon glyphicon-remove" style="cursor:pointer" title="Elminar"></span>&nbsp;&nbsp;
+                <span class="glyphicon glyphicon-file" title="Elegir Foto" style="cursor:pointer" onclick="$('#UploadImageNoticia').click()"></span>
+                @Html.ValidationMessageFor(model => model.ImagenNoticia, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Imagen Noticia Preview", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.Raw("<img id=\"imgNoticia\" src=\"data:image/png;base64," + @Model.ImagenNoticia + "\" class=\"img-responsive center-block\" />")
+                <input type="file" id="UploadImageNoticia" name="UploadImageNoticia" accept="image/*" style="display:none" onchange="loadFileNoticia(event)" />
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.Label("Pie foto", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Pie, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Pie, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Cuerpo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Cuerpo, 10, 120, new { htmlAttributes = new { @class = "form-control" }, style = "width:100%; max-width:100%" })
+                @Html.ValidationMessageFor(model => model.Cuerpo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Guardar" class="btn btn-default" />
+                | @Html.ActionLink("Cancelar", "Index")
+            </div>
+        </div>
+    </div>
+    <hr />
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        var loadFilePortada = function (event) {
+            if(event != '' && event.target.files.length > 0) {
+                $('#imgPortada').show();
+                document.getElementById('imgPortada').src = URL.createObjectURL(event.target.files[0]);
+            }
+            else {
+                $('#UploadImagePortada').val(null);
+                $('#ImagenPortada').val(null);
+                document.getElementById('imgPortada').src = '';
+                $('#imgPortada').hide();
+            }
+        };
+
+        if ($('#ImagenPortada').val() == '')
+            loadFilePortada('');
+
+        var loadFileNoticia = function (event) {
+            if (event != '' && event.target.files.length > 0) {
+                $('#imgNoticia').show();
+                document.getElementById('imgNoticia').src = URL.createObjectURL(event.target.files[0]);
+            }
+            else {
+                $('#UploadImageNoticia').val(null);
+                $('#ImagenNoticia').val(null);
+                document.getElementById('imgNoticia').src = '';
+                $('#imgNoticia').hide();
+            }
+        };
+
+        if ($('#ImagenNoticia').val() == '')
+            loadFileNoticia('');
+
+    </script>
+}

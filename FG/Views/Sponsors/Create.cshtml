@@ -1,0 +1,151 @@
+﻿@model FG.Models.Sponsor
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Nuevo Sponsor</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Titulo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Titulo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Titulo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.HiddenFor(model => model.LogoBarra)
+            @Html.Label("Imagen Barra", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <span onclick="loadFileBarra('')" class="glyphicon glyphicon-remove" style="cursor:pointer" title="Elminar Foto"></span>&nbsp;&nbsp;
+                <span class="glyphicon glyphicon-file" title="Elegir Foto" style="cursor:pointer" onclick="$('#UploadImageBarra').click()"></span>
+                @Html.ValidationMessageFor(model => model.LogoBarra, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Preview", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.Raw("<img id=\"imgBarra\" class=\"img-responsive center-block\" />")
+                <input type="file" id="UploadImageBarra" name="UploadImageBarra" accept="image/*" style="display:none" onchange="loadFileBarra(event)" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.HiddenFor(model => model.LogoPagina)
+            @Html.Label("Imagen Pagina", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <span onclick="loadFilePagina('')" class="glyphicon glyphicon-remove" style="cursor:pointer" title="Elminar Foto"></span>&nbsp;&nbsp;
+                <span class="glyphicon glyphicon-file" title="Elegir Foto" style="cursor:pointer" onclick="$('#UploadImagePagina').click()"></span>
+                @Html.ValidationMessageFor(model => model.LogoPagina, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Preview", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.Raw("<img id=\"imgPagina\" class=\"img-responsive center-block\" />")
+                <input type="file" id="UploadImagePagina" name="UploadImagePagina" accept="image/*" style="display:none" onchange="loadFilePagina(event)" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Url, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Url, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Url, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Descripcion", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FacebookUrl, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FacebookUrl, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FacebookUrl, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TwitterUrl, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TwitterUrl, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TwitterUrl, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Orden, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Orden, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Orden, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Guardar" class="btn btn-default" />
+                | @Html.ActionLink("Cancelar", "Index")            
+            </div>
+        </div>
+    </div>
+    <hr />
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        var loadFileBarra = function (event) {
+            if (event != '' && event.target.files.length > 0) {
+                $('#imgBarra').show();
+                document.getElementById('imgBarra').src = URL.createObjectURL(event.target.files[0]);
+                $('#LogoBarra').val('x');
+            }
+            else {
+                $('#UploadImageBarra').val('');
+                $('#LogoBarra').val('');
+                document.getElementById('imgBarra').src = '';
+                $('#imgBarra').hide();
+            }
+        };
+
+        var loadFilePagina = function (event) {
+            if (event != '' && event.target.files.length > 0) {
+                $('#imgPagina').show();
+                document.getElementById('imgPagina').src = URL.createObjectURL(event.target.files[0]);
+                $('#LogoPagina').val('x');
+            }
+            else {
+                $('#UploadImagePagina').val('');
+                $('#LogoPagina').val('');
+                document.getElementById('imgPagina').src = '';
+                $('#imgPagina').hide();
+            }
+        };
+
+
+        if ($('#LogoBarra').val() == '')
+            loadFileBarra('');
+
+        if ($('#LogoPagina').val() == '')
+            loadFilePagina('');
+    </script>
+}
+
+

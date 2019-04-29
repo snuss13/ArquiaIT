@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArquiaIT", "ArquiaIT\ArquiaIT.csproj", "{73857E08-0FA6-4261-89E0-7D97ACCDF81D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArquiaIT.Tests", "ArquiaIT.Tests\ArquiaIT.Tests.csproj", "{B01CD7BF-7989-44CE-836A-D9710E28C9E3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{73857E08-0FA6-4261-89E0-7D97ACCDF81D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73857E08-0FA6-4261-89E0-7D97ACCDF81D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73857E08-0FA6-4261-89E0-7D97ACCDF81D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73857E08-0FA6-4261-89E0-7D97ACCDF81D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B01CD7BF-7989-44CE-836A-D9710E28C9E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B01CD7BF-7989-44CE-836A-D9710E28C9E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B01CD7BF-7989-44CE-836A-D9710E28C9E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B01CD7BF-7989-44CE-836A-D9710E28C9E3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

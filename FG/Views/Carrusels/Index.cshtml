@@ -1,0 +1,51 @@
+﻿@model IEnumerable<FG.Models.Carrusel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Carrusel</h2>
+
+<p>
+    @Html.ActionLink("Agregar", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Imagen)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Leyenda)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @if (!string.IsNullOrEmpty(item.Url))
+            {
+                @Html.Raw("<a href=\"" + @item.Url + "\" target=\"blank\">")
+            }
+
+            @if (!string.IsNullOrEmpty(item.Imagen))
+            {
+                @Html.Raw("<img src=\"data:image/png;base64," + item.Imagen+ "\" class=\"img-responsive center-block\" />")
+            }
+            @if (!string.IsNullOrEmpty(item.Url))
+            {
+                @Html.Raw("</a>")
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Leyenda)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
+<hr />

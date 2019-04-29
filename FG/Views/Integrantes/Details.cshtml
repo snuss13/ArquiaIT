@@ -1,0 +1,89 @@
+﻿@model FG.Models.Integrante
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Integrante</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Foto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Foto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nick)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nick)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FacebookLink)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FacebookLink)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TwitterLink)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TwitterLink)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.YouTubeLink)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.YouTubeLink)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TwitchTVLink)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TwitchTVLink)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Divisiones)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Divisiones)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Volver a Integrantes", "Index")
+</p>

@@ -1,0 +1,51 @@
+﻿@model IEnumerable<FG.Models.Sponsor>
+
+
+@if (!string.IsNullOrEmpty(ViewBag.Banner))
+{
+    @Html.Raw("<img src=\"data:image/png;base64," + ViewBag.Banner + "\" class=\"img-responsive center-block\" />")
+}
+else
+{
+    <h2>Sponsors</h2>
+}
+
+
+@foreach (var sponsor in Model)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                @if (!string.IsNullOrEmpty(sponsor.Url))
+                {
+                    @Html.Raw("<a href=\"" + @sponsor.Url + "\" target=\"blank\">");
+                }
+                @if (!string.IsNullOrEmpty(sponsor.LogoBarra))
+                {
+                    @Html.Raw("<img src=\"data:image/png;base64," + sponsor.LogoBarra + "\" class=\"img-responsive center-block\" />")
+                }
+                @if (!string.IsNullOrEmpty(sponsor.Url))
+                {
+                    @Html.Raw("</a>")
+                }
+
+
+                @if (!string.IsNullOrEmpty(sponsor.FacebookUrl))
+                {
+                    <div style="float:left;width:50%">
+                        @Html.Raw("<a href=\"" + @sponsor.FacebookUrl + "\" target=\"blank\"><img src=\"/Content/FB-logo.png\" class=\"img-responsive center-block\" /></a>")
+                    </div>
+                }
+
+
+                @if (!string.IsNullOrEmpty(sponsor.TwitterUrl))
+                {
+                    <div style="float:left;width:50%">
+                        @Html.Raw("<a href=\"" + @sponsor.TwitterUrl + "\" target=\"blank\"><img src=\"/Content/Twitter-logo.png\" class=\"img-responsive center-block\" /></a>")
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <hr />
+}

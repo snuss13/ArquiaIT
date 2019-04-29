@@ -1,0 +1,44 @@
+﻿@model FG.Models.Noticia
+@using System.Web
+
+<div>
+    <dl class="dl-horizontal">
+
+        <dd>
+            <h6>@Html.DisplayFor(model => model.Volanta)</h6>
+        </dd>
+
+        <dd>
+            <h2><b><u>@Html.DisplayFor(model => model.Titulo)</u></b></h2>
+        </dd>
+
+        <dd>
+            <h6>@Html.DisplayFor(model => model.Subtitulo)</h6>
+        </dd>
+
+        <dd>
+            @if (!string.IsNullOrEmpty(@Model.ImagenNoticia)) { 
+                @Html.Raw("<img src=\"data:image/png;base64," + @Model.ImagenNoticia + "\" class=\"img-responsive center-block\" />")
+            }
+            
+        </dd>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pie)
+            <hr />
+        </dd>
+
+        <dd>
+            @Html.Raw(Model.Cuerpo)
+            @*@Html.DisplayFor(model => model.Cuerpo)*@
+        </dd>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimeStamp)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Volver a Noticias", "Index")
+</p>

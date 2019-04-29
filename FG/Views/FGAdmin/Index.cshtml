@@ -1,0 +1,50 @@
+﻿@model FG.Models.FGAdmin
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Administración</h2>
+<div class="row">
+
+
+    <div class="form-group">
+        @Html.HiddenFor(model => model.NoticiasBanner)
+        @Html.Label("Banner Noticias", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <span onclick="loadImage('', 'Noticias')" class="glyphicon glyphicon-remove" style="cursor:pointer" title="Elminar"></span>&nbsp;&nbsp;
+            <span class="glyphicon glyphicon-file" title="Seleccionar" style="cursor:pointer" onclick="$('#UploadBannerNoticias').click()"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Imagen Portada Preview", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.Raw("<img id=\"imgBannerNoticias\" src=\"data:image/png;base64," + @Model.NoticiasBanner + "\" class=\"img-responsive center-block\" />")
+            <input type="file" id="UploadImageBanner" name="UploadImagePortada" accept="image/*" style="display:none" onchange="loadImage(event,'Noticia')" />
+        </div>
+    </div>
+
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        var loadImage = function (event, which) {
+            if (event != '' && event.target.files.length > 0) {
+                $('#imgBanner' + which).show();
+                document.getElementById('img' + which).src = URL.createObjectURL(event.target.files[0]);
+            }
+            else {
+                $('#UploadBanner' + which).val(null);
+                $('#' + which + 'Banner').val(null);
+                document.getElementById('img' + which).src = '';
+                $('#imgBanner' + which).hide();
+            }
+        };
+
+        if ($('#NoticiasBanner').val() == '')
+            loadImage('','Noticias');
+    </script>
+}

@@ -1,0 +1,141 @@
+﻿@model FG.Models.FGVM
+@{
+    ViewBag.Title = "FG Home";
+}
+<style>
+    /*.carousel .item {
+        overflow: hidden;
+    }*/
+
+        .carousel .item img {
+            width: 100%;
+            /*height: 900%;
+            max-height: 900px;
+            margin: auto;*/
+        }
+</style>
+
+<div class="row">
+    <div class="col-md-12">
+
+        @if (Model.Carrousel.Count > 0)
+        {
+            <br />
+            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                <!-- Indicators -->
+                <ul class="carousel-indicators">
+                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#myCarousel" data-slide-to="1"></li>
+                    <li data-target="#myCarousel" data-slide-to="2"></li>
+                    <li data-target="#myCarousel" data-slide-to="3"></li>
+                </ul>
+
+                <div class="carousel-inner" role="listbox" style="margin: 0 auto">
+                    @for (int i = 0; i < Model.Carrousel.Count; i++)
+                    {
+                        var item = Model.Carrousel[i];
+                        var itemClass = i == 0 ? "item active" : "item";
+                        <div class="@itemClass">
+                            @if (!string.IsNullOrEmpty(item.Url))
+                            { 
+                                @Html.Raw("<a href=\"" + @item.Url + "\" target=\"blank\">")
+                            }
+                            @Html.Raw("<img src=\"data:image/png;base64," + item.Imagen + "\" class=\"img-responsive center-block\" />")
+                            @if (!string.IsNullOrEmpty(item.Url))
+                            {
+                                @Html.Raw("</a>")
+                            }
+                            <div class="carousel-caption">
+                                <h3>@item.Leyenda</h3>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+                <!-- Left and right controls -->
+                <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        }
+        <hr />
+        @foreach (var publicidad in Model.Publicidades)
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    @if (!string.IsNullOrEmpty(publicidad.Url))
+                    {
+                        @Html.Raw("<a href=\"" + @publicidad.Url + "\" target=\"blank\">")
+                    }
+                    @Html.Raw("<img src=\"data:image/png;base64," + publicidad.Banner + "\" class=\"img-responsive center-block\" />")
+                    @if (!string.IsNullOrEmpty(publicidad.Url))
+                    {
+                        @Html.Raw("</a>")
+                    }
+                </div>
+            </div>
+        }
+
+        
+        <hr />
+        @if (!string.IsNullOrEmpty(Model.BannerNoticias))
+        {
+            @Html.Raw("<img src=\"data:image/png;base64," + Model.BannerNoticias + "\" class=\"img-responsive center-block\" />")
+        }
+        else
+        {
+            <h2>Noticias</h2>
+        }
+
+        @foreach (var noticia in Model.Noticias)
+        {
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="row">
+                        <div class="col-md-12">
+                            @if (!string.IsNullOrEmpty(noticia.ImagenPortada))
+                            {
+                                @Html.Raw("<img src=\"data:image/png;base64," + noticia.ImagenPortada + "\" class=\"img-responsive center-block\" />")
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h5>@noticia.Pie</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-10">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h6>@noticia.Volanta</h6>
+                            <h2><b>@Html.ActionLink(@noticia.Titulo, "Details", "Noticias", new { id = noticia.Id }, null)</b></h2>
+                            <h6>@noticia.Subtitulo</h6>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-11">
+                            @Html.Raw(@noticia.CuerpoCorto)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h6 style="color:gray">@noticia.TimeStamp</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <hr />
+            </div>
+        }
+    </div>
+</div>
+<br />
+
+

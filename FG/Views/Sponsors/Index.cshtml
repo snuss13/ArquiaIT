@@ -1,0 +1,90 @@
+﻿@model IEnumerable<FG.Models.Sponsor>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@if (!string.IsNullOrEmpty(ViewBag.Banner))
+{
+    @Html.Raw("<img src=\"data:image/png;base64," + ViewBag.Banner + "\" class=\"img-responsive center-block\" />")
+}
+else
+{
+    <h2>Sponsors</h2>
+}
+
+@if (Session["sessionStore"] != null && (Session["sessionStore"] as FG.Models.SessionStore).Usuario.Rol=="Administrador")
+{
+    <p>
+        @Html.ActionLink("Agregar", "Create")
+    </p>
+}
+
+    @foreach (var item in Model)
+    {
+        <div class="row">
+            <div class="col-md-6">
+                @if (!string.IsNullOrEmpty(item.Url))
+                {
+                    @Html.Raw("<a href=\"" + @Html.DisplayFor(modelItem => item.Url) + "\" target=\"blank\">")
+                }
+                <br />
+                @if (!string.IsNullOrEmpty(item.LogoPagina))
+                {
+                    @Html.Raw("<img src=\"data:image/png;base64," + item.LogoPagina + "\" class=\"img-responsive center-block\" />")
+                }
+                @if (!string.IsNullOrEmpty(item.Url))
+                {
+                    @Html.Raw("</a>")
+                }
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4><font style="color:black; font-weight:bold;">@Html.DisplayFor(modelItem => item.Titulo) </font></h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        @if (!string.IsNullOrEmpty(item.Descripcion))
+                        {
+                            <p>@item.Descripcion</p>
+                        }
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        @if (!string.IsNullOrEmpty(item.FacebookUrl))
+                        {
+                            <div style="float:left;width:80px">
+                                @Html.Raw("<a href=\"" + @item.FacebookUrl + "\" target=\"blank\"><img src=\"/Content/FB-logo.png\" class=\"img-responsive center-block\" /></a>")
+                            </div>
+                        }
+                    </div>
+                    <div class="col-md-6">
+                        @if (!string.IsNullOrEmpty(item.TwitterUrl))
+                        {
+                            <div style="float:left;width:80px">
+                                @Html.Raw("<a href=\"" + @item.TwitterUrl + "\" target=\"blank\"><img src=\"/Content/Twitter-logo.png\" class=\"img-responsive center-block\" /></a>")
+                            </div>
+                        }
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+        if(Session["sessionStore"] != null && (Session["sessionStore"] as FG.Models.SessionStore).Usuario.Rol=="Administrador")
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
+                </div>
+            </div>
+        }
+        <hr />
+    }
+
+

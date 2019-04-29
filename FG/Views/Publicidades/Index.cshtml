@@ -1,0 +1,45 @@
+﻿@model IEnumerable<FG.Models.Publicidad>
+
+@{
+    ViewBag.Title = "Publicidades";
+}
+
+<h2>Publicidades</h2>
+
+@if (Session["sessionStore"] != null && (Session["sessionStore"] as FG.Models.SessionStore).Usuario.Rol=="Administrador")
+{
+    <p>
+        @Html.ActionLink("Agregar", "Create")
+    </p>
+}
+@foreach (var item in Model)
+{
+    <div class="row">
+        <div class="col-md-12">
+            @if (!string.IsNullOrEmpty(item.Banner))
+            {
+                @Html.Raw("<img src=\"data:image/png;base64," + item.Banner + "\" class=\"img-responsive center-block\" />")
+            }
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <label> Url:</label>
+            @if(!string.IsNullOrEmpty(item.Url))
+            { 
+                @Html.Raw("<a href=\"" + item.Url + "\">" + item.Url + "</a>")
+            }
+        </div>
+    </div>
+    if (Session["sessionStore"] != null && (Session["sessionStore"] as FG.Models.SessionStore).Usuario.Rol=="Administrador")
+    {
+        <div class="row">
+            <div class="col-md-12">
+                @Html.ActionLink("Editar", "Edit", new { id = item.Id })
+                @Html.Raw("|")
+                @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
+            </div>
+        </div>
+    }
+}
+<hr />

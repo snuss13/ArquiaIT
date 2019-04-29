@@ -1,0 +1,73 @@
+﻿@model FG.Models.Sponsor
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h4>Eliminar Sponsor</h4>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Titulo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Titulo)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LogoBarra)
+        </dt>
+
+        <dd>
+            @if (!string.IsNullOrEmpty(Model.LogoBarra))
+            {
+                @Html.Raw("<img id=\"img\" src=\"data:image/png;base64," + Model.LogoBarra + "\" class=\"img-responsive center-block\" />")
+            }
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LogoPagina)
+        </dt>
+
+        <dd>
+            @if (!string.IsNullOrEmpty(Model.LogoPagina))
+            {
+                @Html.Raw("<img id=\"img\" src=\"data:image/png;base64," + Model.LogoPagina + "\" class=\"img-responsive center-block\" />")
+            }
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Url)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Url)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FacebookUrl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FacebookUrl)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TwitterUrl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TwitterUrl)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn btn-default" /> |
+            @Html.ActionLink("Cancelar", "Index")
+        </div>
+    }
+</div>
+<hr />

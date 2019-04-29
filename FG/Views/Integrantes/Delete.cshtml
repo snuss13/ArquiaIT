@@ -1,0 +1,98 @@
+﻿@model FG.Models.Integrante
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h4>Eliminar Integrante</h4>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Foto)
+        </dt>
+
+        <dd>
+            @if (!string.IsNullOrEmpty(@Model.Foto))
+            {
+                @Html.Raw("<img id=\"img\" src=\"data:image/png;base64," + @Model.Foto + "\" class=\"img-responsive center-block\" />")
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nick)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nick)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FacebookLink)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FacebookLink)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TwitterLink)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TwitterLink)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.YouTubeLink)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.YouTubeLink)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TwitchTVLink)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TwitchTVLink)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Divisiones)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Divisiones)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn btn-default" /> |
+            @Html.ActionLink("Cancelar", "Index")
+        </div>
+    }
+</div>
+<hr />

@@ -1,0 +1,49 @@
+﻿@model FG.Models.Carrusel
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h4>Eliminar Carrusel</h4>
+
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Imagen)
+        </dt>
+
+        <dd>
+            @if (!string.IsNullOrEmpty(Model.Imagen)) { 
+                @Html.Raw("<img id=\"img\" src=\"data:image/png;base64," + Model.Imagen + "\" class=\"img-responsive center-block\" style=\"display:block\" />")
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Leyenda)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Leyenda)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Url)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Url)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn btn-default" /> |
+            @Html.ActionLink("Cancelar", "Index")
+        </div>
+    }
+</div>
+<hr />
