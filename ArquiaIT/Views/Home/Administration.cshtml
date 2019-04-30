@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "Contact";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                <li>@Html.ActionLink("Usuarios", "Contact", "Home")</li>
+                <li>@Html.ActionLink("Tipo de Teléfono", "Index", "Administration/TelephoneTypes")</li>
+            </ul>
+        </div>
+    </div>
+</div>

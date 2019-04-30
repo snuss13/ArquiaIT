@@ -26,5 +26,12 @@ namespace ArquiaIT.Controllers
 
             return View();
         }
+
+        public ActionResult Administration()
+        {
+            ViewBag.Message = "Your Admin page.";
+
+            return View();
+        }
     }
 }
