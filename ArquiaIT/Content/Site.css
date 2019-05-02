@@ -1,12 +1,14 @@
 ﻿body {
-    padding-top: 50px;
+    padding-top: 80px;
     padding-bottom: 20px;
+    
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    min-height:82vh;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -23,6 +25,16 @@ textarea {
     max-width: 280px;
 }
 
+.navbar-nav
+{
+    font-size:18px;
+}
+
+footer p 
+{
+    text-align:right;
+}
+
 .Warning
 {
     color:red;
@@ -35,7 +47,8 @@ textarea {
     margin-bottom: 5vh;
 }
 
-footer p 
+.Logo
 {
-    text-align:right;
+  max-height:80px;
+  max-width: 150px;
 }
