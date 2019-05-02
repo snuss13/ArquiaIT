@@ -22,3 +22,20 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.Warning
+{
+    color:red;
+    font-family:VVerdana, 'Times New Roman', serif;
+    font-weight:bold;
+    font-style:italic;
+    text-decoration: underline;
+    font-size: large;
+    margin-left: 15vh;
+    margin-bottom: 5vh;
+}
+
+footer p 
+{
+    text-align:right;
+}

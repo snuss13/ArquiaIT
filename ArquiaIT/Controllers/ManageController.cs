@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ArquiaIT.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace ArquiaIT.Controllers
 {
@@ -215,33 +216,121 @@ namespace ArquiaIT.Controllers
 
         //
         // GET: /Manage/ChangePassword
-        public ActionResult ChangePassword()
+        public ActionResult ChangePassword(String id)
         {
-            return View();
+            var user = UserManager.FindById(id);
+
+            ChangePasswordViewModel model = new ChangePasswordViewModel();
+
+            model.UserId = user.Id;
+            model.UserName = user.UserName;
+          
+            return View(model);
         }
 
         //
         // POST: /Manage/ChangePassword
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
+        public  ActionResult ChangePassword(ChangePasswordViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
-            var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
-            if (result.Succeeded)
-            {
-                var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-                if (user != null)
-                {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                }
-                return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
-            }
-            AddErrors(result);
+            var resetToken = UserManager.GeneratePasswordResetToken(model.UserId);
+            
+            UserManager.ResetPassword(model.UserId, resetToken, model.NewPassword);
+
+            return RedirectToAction("UserList", "Account");
+        }
+
+
+        //
+        // GET: /Manage/ChangePassword
+        public ActionResult Edit(String id)
+        {
+            var user = UserManager.FindById(id);
+
+            EditUserViewModel model = new EditUserViewModel();
+
+            model.UserId = user.Id;
+            model.UserName = user.UserName;
+            model.Email = user.Email;
+            model.UserRolID = user.Roles.FirstOrDefault().RoleId;
+
+            ViewBag.Roles = new SelectList((new ApplicationDbContext()).Roles.OrderByDescending(x => x.Name).ToList(), "ID", "Name");
+
             return View(model);
+        }
+
+        //
+        // POST: /Manage/ChangePassword
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(EditUserViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var appUser = UserManager.FindById(model.UserId);
+
+            appUser.Email = model.Email;
+            appUser.UserName = model.UserName;
+
+            if (model.UserRolID != appUser.Roles.FirstOrDefault().RoleId)
+            {
+                appUser.Roles.Clear();
+
+                IdentityUserRole userRol = new IdentityUserRole();
+                userRol.RoleId = model.UserRolID;
+                userRol.UserId = model.UserId;
+                appUser.Roles.Add(userRol);
+            }
+
+            UserManager.Update(appUser);
+
+            return RedirectToAction("UserList", "Account");
+        }
+
+        //
+        // GET: /Manage/ChangePassword
+        [AllowAnonymous]
+        public ActionResult Delete(String id)
+        {
+            var user = UserManager.FindById(id);
+
+            EditUserViewModel model = new EditUserViewModel();
+
+            model.UserId = user.Id;
+            model.UserName = user.UserName;
+            model.Email = user.Email;
+            model.UserRolID = user.Roles.FirstOrDefault().RoleId;
+
+            ViewBag.Roles = new SelectList((new ApplicationDbContext()).Roles.OrderByDescending(x => x.Name).ToList(), "ID", "Name");
+
+            return View(model);
+        }
+
+        //
+        // POST: /Manage/ChangePassword
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [AllowAnonymous]
+        public ActionResult Delete(EditUserViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var appUser = UserManager.FindById(model.UserId);
+
+            UserManager.Delete(appUser);
+
+            return RedirectToAction("UserList", "Account");
         }
 
         //

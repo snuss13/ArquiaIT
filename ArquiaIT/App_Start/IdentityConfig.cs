@@ -86,6 +86,11 @@ namespace ArquiaIT
             }
             return manager;
         }
+
+        internal void AddPasswordAsync<T>(Func<T> getUserId, string newPassword) where T : IConvertible
+        {
+            throw new NotImplementedException();
+        }
     }
 
     // Configure the application sign-in manager which is used in this application.
