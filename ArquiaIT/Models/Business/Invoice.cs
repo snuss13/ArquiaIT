@@ -36,7 +36,7 @@ namespace ArquiaIT.Models.Business
     
         public virtual InvoiceCategory InvoiceCategory { get; set; }
         public virtual PurchaseOrderLine PurchaseOrderLine { get; set; }
-        public virtual InvoiceStatu InvoiceStatu { get; set; }
+        public virtual InvoiceStatus InvoiceStatus { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Spend> Spends { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -171,12 +171,17 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InvoiceCategoriesController.cs" />
+    <Compile Include="Controllers\InvoiceStatusController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\TelephoneTypesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Business\InvoiceStatus.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\UserWithRoleViewModel.cs" />
     <Compile Include="Models\Business\Client.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -185,9 +190,6 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Business\InvoiceCategory.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Business\InvoiceStatu.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Business\Model1.Context.cs">
@@ -280,6 +282,16 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\InvoiceCategories\Create.cshtml" />
+    <Content Include="Views\InvoiceCategories\Delete.cshtml" />
+    <Content Include="Views\InvoiceCategories\Details.cshtml" />
+    <Content Include="Views\InvoiceCategories\Edit.cshtml" />
+    <Content Include="Views\InvoiceCategories\Index.cshtml" />
+    <Content Include="Views\InvoiceStatus\Create.cshtml" />
+    <Content Include="Views\InvoiceStatus\Delete.cshtml" />
+    <Content Include="Views\InvoiceStatus\Details.cshtml" />
+    <Content Include="Views\InvoiceStatus\Edit.cshtml" />
+    <Content Include="Views\InvoiceStatus\Index.cshtml" />
     <None Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ArquiaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ArquiaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Client">
           <Key>
             <PropertyRef Name="Id" />
@@ -274,8 +274,7 @@
             <End Role="Telephone" EntitySet="Telephone" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ArquiaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -309,7 +308,7 @@
           <Property Name="PayDate" Type="DateTime" Precision="0" />
           <NavigationProperty Name="InvoiceCategory" Relationship="Self.FK_Invoice_ToCategory" FromRole="Invoice" ToRole="InvoiceCategory" />
           <NavigationProperty Name="PurchaseOrderLine" Relationship="Self.FK_Invoice_ToPOLine" FromRole="Invoice" ToRole="PurchaseOrderLine" />
-          <NavigationProperty Name="InvoiceStatu" Relationship="Self.FK_Invoice_ToStatus" FromRole="Invoice" ToRole="InvoiceStatus" />
+          <NavigationProperty Name="InvoiceStatus" Relationship="Self.FK_Invoice_ToStatus" FromRole="Invoice" ToRole="InvoiceStatus" />
           <NavigationProperty Name="Spends" Relationship="Self.FK_ISpends_ToInvoice" FromRole="Invoice" ToRole="Spends" />
           <NavigationProperty Name="Retentions" Relationship="Self.FK_Retention_ToInvoice" FromRole="Invoice" ToRole="Retentions" />
         </EntityType>
@@ -322,7 +321,7 @@
           <Property Name="Active" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Invoices" Relationship="Self.FK_Invoice_ToCategory" FromRole="InvoiceCategory" ToRole="Invoice" />
         </EntityType>
-        <EntityType Name="InvoiceStatu">
+        <EntityType Name="InvoiceStatus">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -459,7 +458,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Invoice_ToStatus">
-          <End Role="InvoiceStatus" Type="Self.InvoiceStatu" Multiplicity="1" />
+          <End Role="InvoiceStatus" Type="ArquiaModel.InvoiceStatus" Multiplicity="1" />
           <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="InvoiceStatus">
@@ -522,7 +521,7 @@
           <EntitySet Name="Clients" EntityType="Self.Client" />
           <EntitySet Name="Invoices" EntityType="Self.Invoice" />
           <EntitySet Name="InvoiceCategories" EntityType="Self.InvoiceCategory" />
-          <EntitySet Name="InvoiceStatus" EntityType="Self.InvoiceStatu" />
+          <EntitySet Name="InvoiceStatus1" EntityType="ArquiaModel.InvoiceStatus" />
           <EntitySet Name="PurchaseOrders" EntityType="Self.PurchaseOrder" />
           <EntitySet Name="PurchaseOrderLines" EntityType="Self.PurchaseOrderLine" />
           <EntitySet Name="Retentions" EntityType="Self.Retention" />
@@ -546,7 +545,7 @@
             <End Role="Invoice" EntitySet="Invoices" />
           </AssociationSet>
           <AssociationSet Name="FK_Invoice_ToStatus" Association="Self.FK_Invoice_ToStatus">
-            <End Role="InvoiceStatus" EntitySet="InvoiceStatus" />
+            <End Role="InvoiceStatus" EntitySet="InvoiceStatus1" />
             <End Role="Invoice" EntitySet="Invoices" />
           </AssociationSet>
           <AssociationSet Name="FK_ISpends_ToInvoice" Association="Self.FK_ISpends_ToInvoice">
@@ -610,8 +609,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="InvoiceStatus">
-            <EntityTypeMapping TypeName="ArquiaModel.InvoiceStatu">
+          <EntitySetMapping Name="InvoiceStatus1">
+            <EntityTypeMapping TypeName="ArquiaModel.InvoiceStatus">
               <MappingFragment StoreEntitySet="InvoiceStatus">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -709,7 +708,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

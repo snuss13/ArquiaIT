@@ -8,7 +8,7 @@
         <EntityTypeShape EntityType="ArquiaModel.Client" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
         <EntityTypeShape EntityType="ArquiaModel.Invoice" Width="1.5" PointX="7.5" PointY="4.375" IsExpanded="true" />
         <EntityTypeShape EntityType="ArquiaModel.InvoiceCategory" Width="1.5" PointX="5.25" PointY="2.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ArquiaModel.InvoiceStatu" Width="1.5" PointX="5.25" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ArquiaModel.InvoiceStatus" Width="1.5" PointX="5.25" PointY="8.875" IsExpanded="true" />
         <EntityTypeShape EntityType="ArquiaModel.PurchaseOrder" Width="1.5" PointX="3" PointY="5.25" IsExpanded="true" />
         <EntityTypeShape EntityType="ArquiaModel.PurchaseOrderLine" Width="1.5" PointX="5.25" PointY="5.375" IsExpanded="true" />
         <EntityTypeShape EntityType="ArquiaModel.Retention" Width="1.5" PointX="9.75" PointY="2.75" IsExpanded="true" />

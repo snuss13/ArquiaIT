@@ -28,7 +28,7 @@ namespace ArquiaIT.Models.Business
         public virtual DbSet<Client> Clients { get; set; }
         public virtual DbSet<Invoice> Invoices { get; set; }
         public virtual DbSet<InvoiceCategory> InvoiceCategories { get; set; }
-        public virtual DbSet<InvoiceStatu> InvoiceStatus { get; set; }
+        public virtual DbSet<InvoiceStatus> InvoiceStatus1 { get; set; }
         public virtual DbSet<PurchaseOrder> PurchaseOrders { get; set; }
         public virtual DbSet<PurchaseOrderLine> PurchaseOrderLines { get; set; }
         public virtual DbSet<Retention> Retentions { get; set; }
