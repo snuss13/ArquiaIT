@@ -38,7 +38,11 @@ namespace ArquiaIT.Controllers
         // GET: TelephoneTypes/Create
         public ActionResult Create()
         {
-            return View();
+            var telephoneType = new TelephoneType();
+
+            telephoneType.Active = true;
+
+            return View(telephoneType);
         }
 
         // POST: TelephoneTypes/Create

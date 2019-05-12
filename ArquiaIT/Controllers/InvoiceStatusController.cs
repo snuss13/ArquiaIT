@@ -38,7 +38,10 @@ namespace ArquiaIT.Controllers
         // GET: InvoiceStatus/Create
         public ActionResult Create()
         {
-            return View();
+            var invoiceStatus = new InvoiceStatus();
+            invoiceStatus.Active = true;
+
+            return View(invoiceStatus);
         }
 
         // POST: InvoiceStatus/Create

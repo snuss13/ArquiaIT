@@ -38,7 +38,11 @@ namespace ArquiaIT.Controllers
         // GET: InvoiceCategories/Create
         public ActionResult Create()
         {
-            return View();
+            var invoiceCategory = new InvoiceCategory();
+
+            invoiceCategory.Active = true;
+
+            return View(invoiceCategory);
         }
 
         // POST: InvoiceCategories/Create

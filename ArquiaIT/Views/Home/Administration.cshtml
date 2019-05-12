@@ -4,16 +4,48 @@
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
 
+<div class="row">&nbsp;</div>
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-4">
+        
+        <div class="navbar-collapse collapse">
+            <h3>USUARIOS</h3>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="navbar-collapse collapse">
+            <h3>TELEFONOS</h3>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="navbar-collapse collapse">
+            <h3>DOCUMENTOS</h3>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
                 <li>@Html.ActionLink("Usuarios", "UserList", "Account")</li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
                 <li>@Html.ActionLink("Tipo de Teléfono", "Index", "TelephoneTypes")</li>
-                <li>@Html.ActionLink("Factura - Categoría", "Index", "InvoiceCategories")</li>
-                <li>@Html.ActionLink("Factura - Status", "Index", "InvoiceStatus")</li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("Tipos", "Index", "InvoiceCategories")</li>
+                <li>@Html.ActionLink("Estados", "Index", "InvoiceStatus")</li>
             </ul>
         </div>
     </div>
 </div>
+
