@@ -27,7 +27,7 @@ namespace ArquiaIT.Controllers
             return View();
         }
 
-        //[Authorize(Roles ="Administrator")]
+        [Authorize(Roles ="Administrator")]
         public ActionResult Administration()
         {
             ViewBag.Message = "Your Admin page.";

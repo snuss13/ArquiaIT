@@ -25,6 +25,11 @@ textarea {
     max-width: 280px;
 }
 
+.Menu-Button
+{
+    height:25vh;
+    width: 25vh;
+}
 .navbar-nav
 {
     font-size:18px;

@@ -10,6 +10,7 @@ using ArquiaIT.Models.Business;
 
 namespace ArquiaIT.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class TelephoneTypesController : Controller
     {
         private ArquiaEntities db = new ArquiaEntities();
