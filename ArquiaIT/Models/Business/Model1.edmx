@@ -13,7 +13,7 @@
           <Property Name="Name" Type="nvarchar" MaxLength="200" />
           <Property Name="CUIT" Type="nvarchar" MaxLength="15" />
           <Property Name="Address" Type="nvarchar" MaxLength="500" />
-          <Property Name="Active" Type="nchar" MaxLength="10" />
+          <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Invoice">
           <Key>
@@ -278,18 +278,6 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ArquiaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Client">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="CUIT" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Active" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="PurchaseOrders" Relationship="Self.FK_PO_ToClient" FromRole="Client" ToRole="PurchaseOrder" />
-          <NavigationProperty Name="Telephones" Relationship="Self.FK_Telephone_ToClient" FromRole="Client" ToRole="Telephone" />
-        </EntityType>
         <EntityType Name="Invoice">
           <Key>
             <PropertyRef Name="Id" />
@@ -340,8 +328,8 @@
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="IsDolar" Type="Boolean" Nullable="false" />
           <Property Name="ChangeRate" Type="Decimal" Precision="19" Scale="4" />
-          <NavigationProperty Name="Client" Relationship="Self.FK_PO_ToClient" FromRole="PurchaseOrder" ToRole="Client" />
           <NavigationProperty Name="PurchaseOrderLines" Relationship="Self.FK_PO_ToPOLine" FromRole="PurchaseOrder" ToRole="PurchaseOrderLine" />
+          <NavigationProperty Name="Client" Relationship="ArquiaModel.FK_PO_ToClient" FromRole="PurchaseOrder" ToRole="Client" />
         </EntityType>
         <EntityType Name="PurchaseOrderLine">
           <Key>
@@ -397,8 +385,8 @@
           <Property Name="ClientID" Type="Int32" Nullable="false" />
           <Property Name="Number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="TypeID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Client" Relationship="Self.FK_Telephone_ToClient" FromRole="Telephone" ToRole="Client" />
           <NavigationProperty Name="TelephoneType" Relationship="Self.FK_Telephone_ToTelType" FromRole="Telephone" ToRole="TelephoneType" />
+          <NavigationProperty Name="Client" Relationship="ArquiaModel.FK_Telephone_ToClient" FromRole="Telephone" ToRole="Client" />
         </EntityType>
         <EntityType Name="TelephoneType">
           <Key>
@@ -409,30 +397,6 @@
           <Property Name="Active" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Telephones" Relationship="Self.FK_Telephone_ToTelType" FromRole="TelephoneType" ToRole="Telephone" />
         </EntityType>
-        <Association Name="FK_PO_ToClient">
-          <End Role="Client" Type="Self.Client" Multiplicity="1" />
-          <End Role="PurchaseOrder" Type="Self.PurchaseOrder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Client">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="PurchaseOrder">
-              <PropertyRef Name="ClientID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Telephone_ToClient">
-          <End Role="Client" Type="Self.Client" Multiplicity="1" />
-          <End Role="Telephone" Type="Self.Telephone" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Client">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Telephone">
-              <PropertyRef Name="ClientID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Invoice_ToCategory">
           <End Role="InvoiceCategory" Type="Self.InvoiceCategory" Multiplicity="1" />
           <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
@@ -518,7 +482,6 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="ArquiaEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Clients" EntityType="Self.Client" />
           <EntitySet Name="Invoices" EntityType="Self.Invoice" />
           <EntitySet Name="InvoiceCategories" EntityType="Self.InvoiceCategory" />
           <EntitySet Name="InvoiceStatus1" EntityType="ArquiaModel.InvoiceStatus" />
@@ -528,14 +491,6 @@
           <EntitySet Name="Spends" EntityType="Self.Spend" />
           <EntitySet Name="Telephones" EntityType="Self.Telephone" />
           <EntitySet Name="TelephoneTypes" EntityType="Self.TelephoneType" />
-          <AssociationSet Name="FK_PO_ToClient" Association="Self.FK_PO_ToClient">
-            <End Role="Client" EntitySet="Clients" />
-            <End Role="PurchaseOrder" EntitySet="PurchaseOrders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Telephone_ToClient" Association="Self.FK_Telephone_ToClient">
-            <End Role="Client" EntitySet="Clients" />
-            <End Role="Telephone" EntitySet="Telephones" />
-          </AssociationSet>
           <AssociationSet Name="FK_Invoice_ToCategory" Association="Self.FK_Invoice_ToCategory">
             <End Role="InvoiceCategory" EntitySet="InvoiceCategories" />
             <End Role="Invoice" EntitySet="Invoices" />
@@ -564,24 +519,58 @@
             <End Role="TelephoneType" EntitySet="TelephoneTypes" />
             <End Role="Telephone" EntitySet="Telephones" />
           </AssociationSet>
-        </EntityContainer>
-      </Schema>
+          <EntitySet Name="Client" EntityType="ArquiaModel.Client" />
+          <AssociationSet Name="FK_PO_ToClient" Association="ArquiaModel.FK_PO_ToClient">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="PurchaseOrder" EntitySet="PurchaseOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Telephone_ToClient" Association="ArquiaModel.FK_Telephone_ToClient">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Telephone" EntitySet="Telephones" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CUIT" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="PurchaseOrder" Relationship="ArquiaModel.FK_PO_ToClient" FromRole="Client" ToRole="PurchaseOrder" />
+          <NavigationProperty Name="Telephone" Relationship="ArquiaModel.FK_Telephone_ToClient" FromRole="Client" ToRole="Telephone" />
+        </EntityType>
+        <Association Name="FK_PO_ToClient">
+          <End Type="ArquiaModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="ArquiaModel.PurchaseOrder" Role="PurchaseOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PurchaseOrder">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Telephone_ToClient">
+          <End Type="ArquiaModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="ArquiaModel.Telephone" Role="Telephone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Telephone">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ArquiaModelStoreContainer" CdmEntityContainer="ArquiaEntities">
-          <EntitySetMapping Name="Clients">
-            <EntityTypeMapping TypeName="ArquiaModel.Client">
-              <MappingFragment StoreEntitySet="Client">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="CUIT" ColumnName="CUIT" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Active" ColumnName="Active" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Invoices">
             <EntityTypeMapping TypeName="ArquiaModel.Invoice">
               <MappingFragment StoreEntitySet="Invoice">
@@ -691,6 +680,17 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Active" ColumnName="Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Client">
+            <EntityTypeMapping TypeName="ArquiaModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="CUIT" ColumnName="CUIT" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -19,7 +19,7 @@ namespace ArquiaIT.Models.Business
         public string Number { get; set; }
         public int TypeID { get; set; }
     
-        public virtual Client Client { get; set; }
         public virtual TelephoneType TelephoneType { get; set; }
+        public virtual Client Client { get; set; }
     }
 }

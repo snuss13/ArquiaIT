@@ -27,8 +27,8 @@ namespace ArquiaIT.Models.Business
         public bool IsDolar { get; set; }
         public Nullable<decimal> ChangeRate { get; set; }
     
-        public virtual Client Client { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PurchaseOrderLine> PurchaseOrderLines { get; set; }
+        public virtual Client Client { get; set; }
     }
 }

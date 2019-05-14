@@ -17,19 +17,19 @@ namespace ArquiaIT.Models.Business
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Client()
         {
-            this.PurchaseOrders = new HashSet<PurchaseOrder>();
-            this.Telephones = new HashSet<Telephone>();
+            this.PurchaseOrder = new HashSet<PurchaseOrder>();
+            this.Telephone = new HashSet<Telephone>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
         public string CUIT { get; set; }
         public string Address { get; set; }
-        public string Active { get; set; }
+        public bool Active { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PurchaseOrder> PurchaseOrders { get; set; }
+        public virtual ICollection<PurchaseOrder> PurchaseOrder { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Telephone> Telephones { get; set; }
+        public virtual ICollection<Telephone> Telephone { get; set; }
     }
 }

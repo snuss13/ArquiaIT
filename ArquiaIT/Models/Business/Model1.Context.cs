@@ -25,7 +25,6 @@ namespace ArquiaIT.Models.Business
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Client> Clients { get; set; }
         public virtual DbSet<Invoice> Invoices { get; set; }
         public virtual DbSet<InvoiceCategory> InvoiceCategories { get; set; }
         public virtual DbSet<InvoiceStatus> InvoiceStatus1 { get; set; }
@@ -35,5 +34,6 @@ namespace ArquiaIT.Models.Business
         public virtual DbSet<Spend> Spends { get; set; }
         public virtual DbSet<Telephone> Telephones { get; set; }
         public virtual DbSet<TelephoneType> TelephoneTypes { get; set; }
+        public virtual DbSet<Client> Client { get; set; }
     }
 }
