@@ -9,6 +9,16 @@
 <p>
     @Html.ActionLink("Nuevo Cliente", "Create")
 </p>
+
+@using (Html.BeginForm())
+{
+    <p>
+        ShowAll: @Html.CheckBox("showAll") <br />        
+    </p>
+    <div style="float:right;"> <input type="submit" value="Search" /></div>
+
+}
+
 <table class="table">
     <tr>
         <th>
