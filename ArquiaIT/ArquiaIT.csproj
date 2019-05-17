@@ -175,6 +175,7 @@
     <Compile Include="Controllers\InvoiceCategoriesController.cs" />
     <Compile Include="Controllers\InvoiceStatusController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\TelephonesController.cs" />
     <Compile Include="Controllers\TelephoneTypesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -332,6 +333,12 @@
     <Content Include="Views\Account\UserList.cshtml" />
     <Content Include="Views\Manage\ChangePassword.cshtml" />
     <Content Include="Views\Manage\Delete.cshtml" />
+    <Content Include="Views\Telephones\Create.cshtml" />
+    <Content Include="Views\Telephones\Delete.cshtml" />
+    <Content Include="Views\Telephones\Details.cshtml" />
+    <Content Include="Views\Telephones\Edit.cshtml" />
+    <Content Include="Views\Telephones\Index.cshtml" />
+    <Content Include="Views\Telephones\IndexView.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

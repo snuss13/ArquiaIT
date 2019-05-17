@@ -1,0 +1,40 @@
+﻿@model IEnumerable<ArquiaIT.Models.Business.Telephone>
+
+@{
+    ViewBag.Title = "Teléfonos";
+}
+
+<h4>Teléfonos</h4>
+
+<p>
+    @Html.ActionLink("Agregar Teléfono", "Create", "Telephones", new { clientID = ViewData["clientID"] }, null)
+</p>
+<table class="table" style="font-size:small;">
+    <tr>
+        <th>
+            Número
+        </th>
+        <th>
+            Tipo de teléfono
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TelephoneType.Description)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", "Telephones", new { id = item.Id }, null) |
+                @*@Html.ActionLink("Details", "Details", "Telephones", new { id=item.Id }) |*@
+                @Html.ActionLink("Borrar", "Delete", "Telephones", new { id = item.Id }, null)
+            </td>
+        </tr>
+    }
+
+</table>

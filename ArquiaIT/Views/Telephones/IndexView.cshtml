@@ -1,0 +1,30 @@
+﻿@model IEnumerable<ArquiaIT.Models.Business.Telephone>
+
+@{
+    ViewBag.Title = "Teléfonos";
+}
+
+<h4>Teléfonos</h4>
+
+<table class="table" style="font-size:small;">
+    <tr>
+        <th>
+            Número
+        </th>
+        <th>
+            Tipo de teléfono
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Number)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TelephoneType.Description)
+        </td>
+    </tr>
+}
+
+</table>

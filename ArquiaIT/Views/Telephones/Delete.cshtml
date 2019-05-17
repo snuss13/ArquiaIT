@@ -1,0 +1,47 @@
+﻿@model ArquiaIT.Models.Business.Telephone
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Eliminar Teléfono</h2>
+
+<h3><font style="color:red">Está seguro que desea eliminar este número de teléfono?</font></h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Número
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Number)
+        </dd>
+
+        <dt>
+            Tipo
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TelephoneType.Description)
+        </dd>
+
+        <dt>
+            Cliente
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Client.Name)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Borrar" class="btn btn-default" /> |
+            @Html.ActionLink("Volver", "Edit", "Clients", new { id = Model.Client.Id }, null)
+        </div>
+    }
+</div>

@@ -22,7 +22,7 @@ namespace ArquiaIT.Controllers
 
         // GET: Clients/Details/5
         public ActionResult Details(int? id)
-        {
+        {           
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -114,7 +114,8 @@ namespace ArquiaIT.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Client client = db.Client.Find(id);
-            db.Client.Remove(client);
+            //db.Client.Remove(client);
+            client.Active = false;
             db.SaveChanges();
             return RedirectToAction("Index");
         }
