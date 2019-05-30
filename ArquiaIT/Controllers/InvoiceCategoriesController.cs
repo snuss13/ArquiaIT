@@ -10,7 +10,7 @@ using ArquiaIT.Models.Business;
 
 namespace ArquiaIT.Controllers
 {
-     [Authorize(Roles = "Administrator")]
+    [Authorize(Roles = "Administrator")]
     public class InvoiceCategoriesController : Controller
     {
         private ArquiaEntities db = new ArquiaEntities();

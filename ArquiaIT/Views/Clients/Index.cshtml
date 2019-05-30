@@ -1,8 +1,10 @@
 ﻿@model IEnumerable<ArquiaIT.Models.Business.Client>
+@using GridMvc.Html
 
 @{
     ViewBag.Title = "Index";
 }
+
 
 <h2>Clientes</h2>
 
@@ -10,52 +12,16 @@
     @Html.ActionLink("Nuevo Cliente", "Create")
 </p>
 
-@using (Html.BeginForm())
-{
-    <p>
-        ShowAll: @Html.CheckBox("showAll") <br />        
-    </p>
-    <div style="float:right;"> <input type="submit" value="Search" /></div>
-
-}
-
-<table class="table">
-    <tr>
-        <th>
-            Nombre
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CUIT)
-        </th>
-        <th>
-           Dirección
-        </th>
-        <th>
-            Activo
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CUIT)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Active)
-        </td>
-        <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Ver", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Borrar", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
-
-</table>
+<hr />
+<div style="width:1000px;">
+    @Html.Grid(Model).Columns(columns =>
+    {
+        columns.Add(c => c.Name).Titled("Nombre").Filterable(true);
+        columns.Add(c => c.CUIT).Titled("CUIT").Filterable(true);
+        columns.Add(c => c.Address).Titled("Dirección").Filterable(true);
+        columns.Add(c => c.Active).Titled("Activo").Filterable(true);
+        columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => Html.ActionLink("Editar", "Edit", new { id = c.Id }));
+        columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => Html.ActionLink("Detalles", "Details", new { id = c.Id }));
+        columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => Html.ActionLink("Borrar", "Delete", new { id = c.Id }));
+    }).WithPaging(20).Sortable(true)
+</div>
