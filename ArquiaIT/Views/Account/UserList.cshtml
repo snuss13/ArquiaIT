@@ -1,46 +1,28 @@
 ﻿@model IEnumerable<ArquiaIT.Models.UserWithRoleViewModel>
+@using GridMvc.Html
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+
+<h2>Usuarios</h2>
 
 <p>
-    @Html.ActionLink("Nuevo Usuario", "Register")
+    @Html.ActionLink("Nuevo", "Register")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Username)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Role)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Username)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Role)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        
-        <td>
-            @Html.ActionLink("Edit", "Edit", "Manage", new { id = item.UserId }, new { }) |
-            @Html.ActionLink( "Change your password", "ChangePassword", "Manage", new { id = item.UserId }, new { }) |
-            @Html.ActionLink("Delete", "Delete", "Manage", new { id = item.UserId }, new { })
-        </td>
-    </tr>
-}
+<hr />
+<div style="width:1000px;">
+    @Html.Grid(Model).Columns(columns =>
+    {
+        columns.Add(c => c.Username).Titled("Nombre de Usuario");
+        columns.Add(c => c.Role).Titled("Rol").Filterable(true);
+        columns.Add(c => c.Email).Titled("E-mail").Filterable(true);
+        columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => Html.ActionLink("Editar", "Edit", "Manage", new { id = c.UserId }, new { }));
+        columns.Add().Encoded(false).Sanitized(false).SetWidth(130).RenderValueAs(c => Html.ActionLink("Cambiar Clave", "ChangePassword", "Manage", new { id = c.UserId }, new { }));
+        columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => Html.ActionLink("Borrar", "Delete", "Manage", new { id = c.UserId }, new { }));
+    }).WithPaging(20).Sortable(true)
+</div>
 
-</table>
+

@@ -3,12 +3,12 @@
     ViewBag.Title = "Delete User";
 }
 
-<h2>@ViewBag.Title.</h2>
+<h2>Usuario</h2>
 
 @using (Html.BeginForm("Delete", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
-   
+    <h4>Eliminar</h4>
     <hr />
 
     <p>
@@ -19,7 +19,7 @@
 
     @Html.HiddenFor(m =>m.UserId, "")
     <div class="form-group">
-        @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
+        @Html.Label("Nombre de Usuario", new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
             @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @readonly = "readonly" })
         </div>
@@ -33,7 +33,7 @@
     </div>
 
     <div class="form-group">
-        @Html.Label("user Role", new { @class = "col-md-2 control-label" })
+        @Html.Label("Rol", new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
             @*@Html.DropDownList("Name")*@
             @Html.DropDownListFor( m => m.UserRolID, (SelectList)ViewBag.Roles, new { @class = "form-control", @readonly = "readonly" })
@@ -42,10 +42,14 @@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Delete" class="btn btn-default" />
+            <input type="submit" value="Eliminar" class="btn btn-default" />
         </div>
     </div>
 }
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+<div>
+    @Html.ActionLink("Volver", "UserList", "Account")
+</div>
