@@ -1,0 +1,56 @@
+﻿@model ArquiaIT.Models.Business.PurchaseOrderLine
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>PurchaseOrderLine</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.Label("Descripción")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.Label("Valor en U$D")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValueInDollars)
+        </dd>
+
+        <dt>
+            @Html.Label("Valor")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Value)
+        </dd>
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.PurchaseOrder.PONumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PurchaseOrder.PONumber)
+        </dd>*@
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn btn-default" /> |
+            @Html.ActionLink("Volver", "Index")
+        </div>
+    }
+</div>

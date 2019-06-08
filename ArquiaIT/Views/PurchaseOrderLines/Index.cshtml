@@ -1,0 +1,46 @@
+﻿@model ArquiaIT.Models.Business.PurchaseOrder
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h4>Detalle</h4>
+
+<p>
+    @Html.ActionLink("Nuevo Item", "Create", "PurchaseOrderLines", new { poID = Model.Id }, null)
+
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.Label("Descripcion")
+        </th>
+        <th>
+            @Html.Label("Valor $")
+        </th>
+        <th>
+            @Html.Label("Valor U$D")
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.PurchaseOrderLines) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Value)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ValueInDollars)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", "PurchaseOrderLines", new { id=item.Id }, null) |
+            @Html.ActionLink("Details", "Details", "PurchaseOrderLines", new { id=item.Id }, null) |
+            @Html.ActionLink("Delete", "Delete", "PurchaseOrderLines", new { id=item.Id }, null)
+        </td>
+    </tr>
+}
+
+</table>

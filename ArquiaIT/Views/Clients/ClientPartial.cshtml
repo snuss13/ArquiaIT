@@ -1,0 +1,88 @@
+﻿@model ArquiaIT.Models.Business.PurchaseOrder
+
+
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Id)
+
+    <div class="row">
+        <div class="col-md-2">
+            @Html.Label("Nombre", htmlAttributes: new { @class = "control -label" })
+        </div>
+        <div class="col-md-4">
+            @if (Model.ClientID > 0)
+            {
+                @Html.DropDownListFor(model => model.ClientID, (SelectList)ViewBag.ClientList, new { @class = "NamePicker show-tick form-control", disabled = "true" })
+            }
+            else
+            {
+                @Html.DropDownListFor(model => model.ClientID, (SelectList)ViewBag.ClientList, new { @class = "NamePicker show-tick form-control" })
+            }
+            @Html.ValidationMessageFor(model => model.ClientID, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="col-md-2">
+            @Html.LabelFor(model => model.Client.CUIT, htmlAttributes: new { @class = "control-label" })
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.Client.CUIT, new { htmlAttributes = new { @class = "form-control", disabled = "true" } })
+            @Html.ValidationMessageFor(model => model.Client.CUIT, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            &nbsp;
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            @Html.Label("Dirección", htmlAttributes: new { @class = "control -label" })
+        </div>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Client.Address, new { htmlAttributes = new { @class = "form-control", disabled = "true" } })
+            @Html.ValidationMessageFor(model => model.Client.Address, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <hr>
+
+<script>
+
+    $(document).ready(function () {
+
+        //$('.NamePicker').selectpicker({
+        //    liveSearch: true,
+        //    showSubtext: true
+        //});
+
+        // Enable Live Search.
+        $('#ClientID').attr('data-live-search', true);
+
+        $('.NamePicker').selectpicker(
+        {
+            width: '100%',
+            title: '- [Cliente] -',
+            style: 'btn-warning, background-color:gray',
+            size: 6
+        });
+
+        $('#ClientID').change(function () {
+                             
+            $.ajax({
+                async: false,
+                url: '/Clients/getClientInfo/' + $("#ClientID").val(),
+                //data: '{model:' + JSON.stringify(check) + '}',
+                type: 'POST',
+                dataType: 'json',
+                success: function (client) {
+                    $("#Client_CUIT").val(client.CUIT);
+                    $("#Client_Address").val(client.Address);
+                }
+            });
+        
+        });
+    });
+
+
+</script>

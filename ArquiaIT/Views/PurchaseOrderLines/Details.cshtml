@@ -1,0 +1,50 @@
+﻿@model ArquiaIT.Models.Business.PurchaseOrderLine
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>PurchaseOrderLine</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.Label("Descripción")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.Label("Valor en U$D")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValueInDollars)
+        </dd>
+
+        <dt>
+            @Html.Label("Valor")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Value)
+        </dd>
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.PurchaseOrder.PONumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PurchaseOrder.PONumber)
+        </dd>*@
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Volver", "Index")
+</p>

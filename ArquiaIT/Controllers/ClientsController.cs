@@ -46,13 +46,41 @@ namespace ArquiaIT.Controllers
             return View(client);
         }
 
+        // GET: Clients/Details/5
+        public ActionResult ClientPartial(int? id)
+        {
+            ViewBag.ClientList = new SelectList(db.Client.Where(x => x.Active == true).OrderBy(x => x.Name).ToList(), "ID", "Name");
+
+            if (id != null)
+            {
+                Client client = db.Client.Find(id);
+                if (client == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(client);
+            }
+            else
+            {
+                return View((new Client()));
+            }
+        }
+
+        public JsonResult getClientInfo(int id)
+        {
+            db.Configuration.LazyLoadingEnabled = false;
+            var cl = db.Client.Find(id);
+
+            return Json(cl, JsonRequestBehavior.AllowGet);          
+        }
+
         // GET: Clients/Create
         public ActionResult Create()
         {
             var client = new Client();
 
             client.Active = true;
-
+           
             return View(client);
         }
 
