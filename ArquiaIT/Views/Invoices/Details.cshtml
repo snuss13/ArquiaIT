@@ -1,0 +1,106 @@
+﻿@model ArquiaIT.Models.Business.Invoice
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Invoice</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.InvoiceDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InvoiceDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InvoiceNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InvoiceNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ValueInPesos)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValueInPesos)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ValueInDollars)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValueInDollars)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IVA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IVA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ChangeRate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ChangeRate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InvoiceTotal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InvoiceTotal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PayDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PayDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InvoiceCategory.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InvoiceCategory.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PurchaseOrderLine.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PurchaseOrderLine.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InvoiceStatus.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InvoiceStatus.Description)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

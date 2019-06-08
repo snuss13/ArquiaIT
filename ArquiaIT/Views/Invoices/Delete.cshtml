@@ -1,0 +1,112 @@
+﻿@model ArquiaIT.Models.Business.Invoice
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Invoice</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.InvoiceDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InvoiceDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InvoiceNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InvoiceNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ValueInPesos)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValueInPesos)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ValueInDollars)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValueInDollars)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IVA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IVA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ChangeRate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ChangeRate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InvoiceTotal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InvoiceTotal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PayDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PayDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InvoiceCategory.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InvoiceCategory.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PurchaseOrderLine.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PurchaseOrderLine.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InvoiceStatus.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InvoiceStatus.Description)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

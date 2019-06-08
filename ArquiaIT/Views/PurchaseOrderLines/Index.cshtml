@@ -30,15 +30,18 @@
             @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Value)
+            @*@Html.DisplayFor(modelItem => item.ValueInPesos, new { format = "C"})*@
+            @String.Format("{0:c}", item.ValueInPesos)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ValueInDollars)
+            @*@Html.DisplayFor(modelItem => item.ValueInDollars)*@
+            @String.Format("{0:c}", item.ValueInDollars)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", "PurchaseOrderLines", new { id=item.Id }, null) |
-            @Html.ActionLink("Details", "Details", "PurchaseOrderLines", new { id=item.Id }, null) |
-            @Html.ActionLink("Delete", "Delete", "PurchaseOrderLines", new { id=item.Id }, null)
+            @Html.ActionLink("Facturar", "Create", "Invoices", new { POLineId = item.Id }, null) |
+            @Html.ActionLink("Editar", "Edit", "PurchaseOrderLines", new { id=item.Id }, null) |
+            @Html.ActionLink("Detalles", "Details", "PurchaseOrderLines", new { id=item.Id }, null) |
+            @Html.ActionLink("Eliminar", "Delete", "PurchaseOrderLines", new { id=item.Id }, null)
         </td>
     </tr>
 }

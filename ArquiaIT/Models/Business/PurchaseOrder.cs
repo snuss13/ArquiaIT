@@ -11,8 +11,7 @@ namespace ArquiaIT.Models.Business
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class PurchaseOrder
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -24,9 +23,6 @@ namespace ArquiaIT.Models.Business
         public int Id { get; set; }
         public int ClientID { get; set; }
         public string PONumber { get; set; }
-
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public System.DateTime Date { get; set; }
         public bool IsDolar { get; set; }
         public Nullable<decimal> ChangeRate { get; set; }

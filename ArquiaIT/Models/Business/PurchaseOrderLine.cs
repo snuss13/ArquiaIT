@@ -25,6 +25,7 @@ namespace ArquiaIT.Models.Business
         public string Description { get; set; }
         public Nullable<decimal> ValueInDollars { get; set; }
         public Nullable<decimal> Value { get; set; }
+        public Nullable<decimal> ValueInPesos { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Invoice> Invoices { get; set; }

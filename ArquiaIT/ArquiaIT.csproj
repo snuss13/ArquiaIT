@@ -177,6 +177,7 @@
     <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InvoiceCategoriesController.cs" />
+    <Compile Include="Controllers\InvoicesController.cs" />
     <Compile Include="Controllers\InvoiceStatusController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PurchaseOrderLinesController.cs" />
@@ -262,7 +263,9 @@
     <Content Include="Content\Site.css" />
     <Content Include="Images\Administration.png" />
     <Content Include="Images\Clients.png" />
+    <Content Include="Images\Invoices.png" />
     <Content Include="Images\PO.jpg" />
+    <Content Include="Images\PO.png" />
     <Content Include="Models\Business\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
@@ -545,6 +548,11 @@
     <Content Include="Views\PurchaseOrderLines\Edit.cshtml" />
     <Content Include="Views\PurchaseOrderLines\Index.cshtml" />
     <Content Include="Views\Clients\ClientPartial.cshtml" />
+    <Content Include="Views\Invoices\Create.cshtml" />
+    <Content Include="Views\Invoices\Delete.cshtml" />
+    <Content Include="Views\Invoices\Details.cshtml" />
+    <Content Include="Views\Invoices\Edit.cshtml" />
+    <Content Include="Views\Invoices\Index.cshtml" />
     <None Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />

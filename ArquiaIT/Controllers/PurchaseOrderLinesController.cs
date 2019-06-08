@@ -41,6 +41,7 @@ namespace ArquiaIT.Controllers
         public ActionResult Create(int poID)
         {
             ViewBag.POID = poID;
+            ViewBag.IsDollar = db.PurchaseOrders.FirstOrDefault(x => x.Id == poID).IsDolar;
             return View();
         }
 
@@ -53,11 +54,8 @@ namespace ArquiaIT.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (purchaseOrderLine.PurchaseOrder.IsDolar)
-                {
-                    purchaseOrderLine.ValueInDollars = purchaseOrderLine.Value * purchaseOrderLine.PurchaseOrder.ChangeRate;
-                }
-                                        
+                CaluculateRates(purchaseOrderLine);
+
                 db.PurchaseOrderLines.Add(purchaseOrderLine);
                 db.SaveChanges();
                 return RedirectToAction("Edit", "PurchaseOrders", new { Id = purchaseOrderLine.POID});
@@ -93,6 +91,8 @@ namespace ArquiaIT.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(purchaseOrderLine).State = EntityState.Modified;
+                CaluculateRates(purchaseOrderLine);
+
                 db.SaveChanges();
                 return RedirectToAction("Edit", "PurchaseOrders", new { Id = purchaseOrderLine.POID });
             }
@@ -124,6 +124,41 @@ namespace ArquiaIT.Controllers
             db.PurchaseOrderLines.Remove(purchaseOrderLine);
             db.SaveChanges();
             return RedirectToAction("Edit", "PurchaseOrders", new { Id = purchaseOrderLine.POID });
+        }
+
+
+        private void CaluculateRates(PurchaseOrderLine purchaseOrderLine)
+        {
+            bool dollar;
+            decimal change;
+
+            if (purchaseOrderLine.PurchaseOrder != null)
+            {
+                dollar = purchaseOrderLine.PurchaseOrder.IsDolar;
+                change = purchaseOrderLine.PurchaseOrder.ChangeRate.Value;
+            }
+            else
+            {
+                var PO = db.PurchaseOrders.FirstOrDefault(x => x.Id == purchaseOrderLine.POID);
+                if (PO != null)
+                {
+                    dollar = PO.IsDolar;
+                    change = PO.ChangeRate.Value;
+                }
+                else
+                    throw (new Exception("No se encuentra la Order nde compra del ítem"));
+            }
+
+            if (dollar)
+            {
+                purchaseOrderLine.ValueInDollars = purchaseOrderLine.Value;
+                purchaseOrderLine.ValueInPesos = purchaseOrderLine.Value * change;
+            }
+            else
+            {
+                purchaseOrderLine.ValueInDollars = purchaseOrderLine.Value / change;
+                purchaseOrderLine.ValueInPesos = purchaseOrderLine.Value;
+            }
         }
 
         protected override void Dispose(bool disposing)

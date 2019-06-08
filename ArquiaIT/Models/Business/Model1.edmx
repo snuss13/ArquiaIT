@@ -68,6 +68,7 @@
           <Property Name="Description" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="ValueInDollars" Type="money" />
           <Property Name="Value" Type="money" />
+          <Property Name="ValueInPesos" Type="money" />
         </EntityType>
         <EntityType Name="Retentions">
           <Key>
@@ -342,6 +343,7 @@
           <Property Name="Value" Type="Decimal" Precision="19" Scale="4" />
           <NavigationProperty Name="Invoices" Relationship="Self.FK_Invoice_ToPOLine" FromRole="PurchaseOrderLine" ToRole="Invoice" />
           <NavigationProperty Name="PurchaseOrder" Relationship="Self.FK_PO_ToPOLine" FromRole="PurchaseOrderLine" ToRole="PurchaseOrder" />
+          <Property Name="ValueInPesos" Type="Decimal" Precision="19" Scale="4" />
         </EntityType>
         <EntityType Name="Retention">
           <Key>
@@ -622,6 +624,7 @@
           <EntitySetMapping Name="PurchaseOrderLines">
             <EntityTypeMapping TypeName="ArquiaModel.PurchaseOrderLine">
               <MappingFragment StoreEntitySet="PurchaseOrderLine">
+                <ScalarProperty Name="ValueInPesos" ColumnName="ValueInPesos" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="POID" ColumnName="POID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
