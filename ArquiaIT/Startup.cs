@@ -4,6 +4,9 @@ using Owin;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using ArquiaIT.Models;
+using ArquiaIT.Models.Business;
+using System.Data.Entity;
+using System.Linq;
 
 [assembly: OwinStartupAttribute(typeof(ArquiaIT.Startup))]
 namespace ArquiaIT
@@ -14,6 +17,22 @@ namespace ArquiaIT
         {
             ConfigureAuth(app);
             CreateRoles();
+            CreateDBSystemConfiguration();
+        }
+
+        private void CreateDBSystemConfiguration()
+        {
+            ArquiaEntities businessDB = new ArquiaEntities();
+            SystemConfiguration sysConf = businessDB.SystemConfiguration.OrderByDescending(x =>x.Id).FirstOrDefault();
+
+            if (sysConf == null)
+            {
+                sysConf = new SystemConfiguration();
+                sysConf.LastChangeRate = 45;
+
+                businessDB.SystemConfiguration.Add(sysConf);
+                businessDB.SaveChanges();
+            }
         }
 
         private void CreateRoles()

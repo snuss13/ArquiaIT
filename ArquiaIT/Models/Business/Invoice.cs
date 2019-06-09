@@ -17,8 +17,8 @@ namespace ArquiaIT.Models.Business
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Invoice()
         {
-            this.Spends = new HashSet<Spend>();
-            this.Retentions = new HashSet<Retention>();
+            this.Spend = new HashSet<Spend>();
+            this.Retention = new HashSet<Retention>();
         }
     
         public int Id { get; set; }
@@ -38,8 +38,8 @@ namespace ArquiaIT.Models.Business
         public virtual PurchaseOrderLine PurchaseOrderLine { get; set; }
         public virtual InvoiceStatus InvoiceStatus { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Spend> Spends { get; set; }
+        public virtual ICollection<Spend> Spend { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Retention> Retentions { get; set; }
+        public virtual ICollection<Retention> Retention { get; set; }
     }
 }

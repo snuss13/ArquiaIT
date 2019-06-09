@@ -30,10 +30,11 @@ namespace ArquiaIT.Models.Business
         public virtual DbSet<InvoiceStatus> InvoiceStatus1 { get; set; }
         public virtual DbSet<PurchaseOrder> PurchaseOrders { get; set; }
         public virtual DbSet<PurchaseOrderLine> PurchaseOrderLines { get; set; }
-        public virtual DbSet<Retention> Retentions { get; set; }
-        public virtual DbSet<Spend> Spends { get; set; }
         public virtual DbSet<Telephone> Telephones { get; set; }
         public virtual DbSet<TelephoneType> TelephoneTypes { get; set; }
         public virtual DbSet<Client> Client { get; set; }
+        public virtual DbSet<Retention> Retention { get; set; }
+        public virtual DbSet<Spend> Spend { get; set; }
+        public virtual DbSet<SystemConfiguration> SystemConfiguration { get; set; }
     }
 }

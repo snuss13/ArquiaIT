@@ -44,8 +44,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GridMvc, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Grid.Mvc.3.0.0\lib\net40\GridMvc.dll</HintPath>
+    <Reference Include="GridMvc, Version=2.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Grid.Mvc.Redux.1.0.4\lib\GridMvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -173,6 +173,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="BusinessRules\SystemConfiguration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -182,6 +183,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PurchaseOrderLinesController.cs" />
     <Compile Include="Controllers\PurchaseOrdersController.cs" />
+    <Compile Include="Controllers\SpendsController.cs" />
     <Compile Include="Controllers\TelephonesController.cs" />
     <Compile Include="Controllers\TelephoneTypesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -189,6 +191,14 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Business\InvoiceStatus.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Business\partialPurchaseOrder.cs" />
+    <Compile Include="Models\Business\partialSpends.cs" />
+    <Compile Include="Models\Business\Spend.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Business\SystemConfiguration.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserWithRoleViewModel.cs" />
@@ -225,9 +235,6 @@
     <Compile Include="Models\Business\Retention.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Business\Spend.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Business\Telephone.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -257,6 +264,8 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Gridmvc.css" />
+    <Content Include="Content\gridmvc.datepicker.css" />
+    <Content Include="Content\gridmvc.datepicker.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -264,8 +273,9 @@
     <Content Include="Images\Administration.png" />
     <Content Include="Images\Clients.png" />
     <Content Include="Images\Invoices.png" />
-    <Content Include="Images\PO.jpg" />
     <Content Include="Images\PO.png" />
+    <Content Include="Images\Reports.png" />
+    <Content Include="Images\Spends.png" />
     <Content Include="Models\Business\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
@@ -289,6 +299,8 @@
     <Content Include="Models\Business\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
+    <Content Include="Scripts\gridmvc.customwidgets.js" />
+    <Content Include="Scripts\gridmvc.lang.fr.js" />
     <Content Include="Scripts\i18n\defaults-am_ET.js" />
     <Content Include="Scripts\i18n\defaults-am_ET.min.js" />
     <Content Include="Scripts\i18n\defaults-ar_AR.js" />
@@ -409,6 +421,7 @@
     <Content Include="Content\bootstrap-datepicker3.css.map" />
     <Content Include="Content\bootstrap-datepicker.standalone.css.map" />
     <Content Include="Content\bootstrap-datepicker.css.map" />
+    <Content Include="Scripts\gridmvc.min.js.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\gridmvc.js" />
     <Content Include="Scripts\gridmvc.lang.ru.js" />
@@ -557,17 +570,17 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Account\ConfirmEmail.cshtml" />
-    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
-    <Content Include="Views\Account\ForgotPassword.cshtml" />
-    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\ToBeDeleted\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\ToBeDeleted\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ToBeDeleted\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ToBeDeleted\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ToBeDeleted\ForgotPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Account\ResetPassword.cshtml" />
-    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\SendCode.cshtml" />
-    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Account\ToBeDeleted\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ToBeDeleted\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\ToBeDeleted\SendCode.cshtml" />
+    <Content Include="Views\Account\ToBeDeleted\VerifyCode.cshtml" />
     <Content Include="Views\Manage\To delete\AddPhoneNumber.cshtml" />
     <Content Include="Views\Manage\Edit.cshtml" />
     <Content Include="Views\Manage\To delete\Index.cshtml" />
@@ -591,6 +604,12 @@
     <Content Include="Views\Telephones\Edit.cshtml" />
     <Content Include="Views\Telephones\Index.cshtml" />
     <Content Include="Views\Telephones\IndexView.cshtml" />
+    <Content Include="Views\Spends\Create.cshtml" />
+    <Content Include="Views\Spends\Delete.cshtml" />
+    <Content Include="Views\Spends\Details.cshtml" />
+    <Content Include="Views\Spends\Edit.cshtml" />
+    <Content Include="Views\Spends\Index.cshtml" />
+    <Content Include="Views\Spends\Spends.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

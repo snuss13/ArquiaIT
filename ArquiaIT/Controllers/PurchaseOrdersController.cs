@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ArquiaIT.Models.Business;
+using ArquiaIT.BusinessRules;
 
 namespace ArquiaIT.Controllers
 {
@@ -44,6 +45,7 @@ namespace ArquiaIT.Controllers
             ViewBag.ClientList = new SelectList(db.Client.Where(x => x.Active == true).OrderBy(x => x.Name).ToList(), "ID", "Name");
             var po = new PurchaseOrder();
             po.Client = new Client();
+            po.ChangeRate = BusinessConfiguration.getLastChangeRate();
             return View(po);
         }
 
@@ -58,7 +60,10 @@ namespace ArquiaIT.Controllers
             {
                 db.PurchaseOrders.Add(purchaseOrder);
                 db.SaveChanges();
-                //return RedirectToAction("Index");
+
+                if (purchaseOrder.ChangeRate.HasValue)
+                    BusinessConfiguration.UpdateChangeRate(purchaseOrder.ChangeRate.Value);
+
                 return RedirectToAction("Edit", new { id = purchaseOrder.Id});
             }
 
@@ -96,6 +101,10 @@ namespace ArquiaIT.Controllers
             {
                 db.Entry(purchaseOrder).State = EntityState.Modified;
                 db.SaveChanges();
+
+                if (purchaseOrder.ChangeRate.HasValue)
+                    BusinessConfiguration.UpdateChangeRate(purchaseOrder.ChangeRate.Value);
+
                 return RedirectToAction("Index");
             }
             ViewBag.ClientID = new SelectList(db.Client, "Id", "Name", purchaseOrder.ClientID);

@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<ArquiaIT.Models.Business.Invoice>
+@using GridMvc.Html
 
 @{
     ViewBag.Title = "Index";
@@ -9,86 +10,24 @@
 @*<p>
     @Html.ActionLink("Create New", "Create")
 </p>*@
-<table class="table">
-    <tr>
-        <th>
-            @Html.Label("Número Fact")
-        </th>
-        <th>
-            @Html.Label("Fecha")
-        </th>
 
-        <th>
-            @Html.Label("Valor AR$")
-        </th>
-        <th>
-            @Html.Label("Valor U$D")
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IVA)
-        </th>
-        <th>
-            @Html.Label("Cambio")
-        </th>
-        <th>
-            @Html.Label("Total")
-        </th>
-        <th>
-            @Html.Label("Fecha Pago")
-        </th>
-        <th>
-            @Html.Label("Categoría")
-        </th>
-        <th>
-            @Html.Label("Orden de Compra")
-        </th>
-        <th>
-            @Html.Label("Estado")
-        </th>
-        <th></th>
-    </tr>
+@Html.Grid(Model).Columns(columns =>
+{
+columns.Add(c => c.InvoiceNumber).Titled("Número").Filterable(true);
+columns.Add(c => c.InvoiceDate).Titled("Fecha").Filterable(true).Format("{0:dd/MM/yyyy}");
+columns.Add(c => c.ValueInPesos).Titled("Valor AR$").Filterable(true).Format("{0:c}");
+columns.Add(c => c.ValueInDollars).Titled("Valor U$D").Filterable(true).Format("{0:c}");
+    columns.Add(c => c.IVA).Titled("IVA").Filterable(true).Format("{0:c}");
+    columns.Add(c => c.ChangeRate).Titled("Cambio").Filterable(true).Format("{0:c}");
+    columns.Add(c => c.InvoiceTotal).Titled("Total").Filterable(true).Format("{0:c}");
+    columns.Add(c => c.PayDate).Titled("Fecha Pago").Filterable(true).Format("{0:dd/MM/yyyy}");
+    columns.Add(c => c.InvoiceCategory.Description).Titled("Categoría").Filterable(true);
+    columns.Add(c => c.PurchaseOrderLine.PurchaseOrder.PONumber).Titled("Orden Compra").Filterable(true);
+    columns.Add(c => c.InvoiceStatus.Description).Titled("Estado").Filterable(true);
+    columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => Html.ActionLink("Editar", "Edit", new { id = c.Id }));
+    columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => Html.ActionLink("Ver", "Details", new { id = c.Id }));
+    columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => Html.ActionLink("Eliminar", "Delete", new { id = c.Id }));
+}).WithPaging(20).Sortable(true)
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.InvoiceNumber)
-        </td>
-        <td>
-            @String.Format("{0:dd/MM/yyyy}", item.InvoiceDate)
-        </td>
-        <td>
-            @String.Format("{0:c}", item.ValueInPesos)
-        </td>
-        <td>
-            @String.Format("{0:c}", item.ValueInDollars)
-        </td>
-        <td>
-            @String.Format("{0:c}", item.IVA)
-        </td>
-        <td>
-            @String.Format("{0:c}", item.ChangeRate)
-        </td>
-        <td>
-            @String.Format("{0:c}", item.InvoiceTotal)
-        </td>
-        <td>
-            @String.Format("{0:dd/MM/yyyy}", item.PayDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.InvoiceCategory.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PurchaseOrderLine.PurchaseOrder.PONumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.InvoiceStatus.Description)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
 
-</table>
+       

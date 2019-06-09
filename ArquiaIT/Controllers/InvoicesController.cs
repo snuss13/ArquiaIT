@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ArquiaIT.Models.Business;
+using ArquiaIT.BusinessRules;
 
 namespace ArquiaIT.Controllers
 {
@@ -68,7 +69,12 @@ namespace ArquiaIT.Controllers
             if (ModelState.IsValid)
             {
                 db.Invoices.Add(invoice);
+
                 db.SaveChanges();
+
+                if (invoice.ChangeRate.HasValue)
+                    BusinessConfiguration.UpdateChangeRate(invoice.ChangeRate.Value);
+
                 return RedirectToAction("Index");
             }
 
@@ -106,6 +112,10 @@ namespace ArquiaIT.Controllers
             {
                 db.Entry(invoice).State = EntityState.Modified;
                 db.SaveChanges();
+
+                if (invoice.ChangeRate.HasValue)
+                    BusinessConfiguration.UpdateChangeRate(invoice.ChangeRate.Value);
+
                 return RedirectToAction("Index");
             }
             ViewBag.CategoryID = new SelectList(db.InvoiceCategories, "Id", "Description", invoice.CategoryID);

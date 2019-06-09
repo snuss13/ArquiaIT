@@ -2,9 +2,17 @@
     ViewBag.Title = "Home Page";
 }
 
-<div style="background-color: #eeeeee;">
+
+<div class="container body-content" style="background-color: #eeeeee;">
     <div class="row">
-        <div class="col-md-4" >
+        <div class="col-md-12">
+            &nbsp;
+        </div>
+    </div>    
+    <div class="row">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-2" >
             <p>
                 <a href="/PurchaseOrders/Index">
                     <img src="~/Images/PO.png" class="Menu-Button" />
@@ -12,6 +20,8 @@
             </p>
         </div>
         <div class="col-md-4">
+        </div>
+        <div class="col-md-2">
             <p>
                 <a href="/Invoices/Index">
                     <img src="~/Images/Invoices.png" class="Menu-Button" />
@@ -19,15 +29,41 @@
             </p>
         </div>
     </div>
+
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-2">
             <p>
-                <a href="/Clients/Index">
-                    <img src="~/Images/Clients.png" class="Menu-Button" />
+                <a href="/Spends/Index">
+                    <img src="~/Images/Spends.png" class="Menu-Button" />
                 </a>
             </p>
         </div>
         <div class="col-md-4">
+        </div>
+        <div class="col-md-2">
+            <p>
+                <a href="/Clients/Index?grid-filter=Active__1__true">
+                    <img src="~/Images/Clients.png" class="Menu-Button" />
+                </a>
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-2">
+            <p>
+                <a href="#">
+                    <img src="~/Images/Reports.png" class="Menu-Button" />
+                </a>
+            </p>
+        </div>
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-2">
             <p>
                 <a href="/Home/Administration">
                     <img src="~/Images/Administration.png" class="Menu-Button" />

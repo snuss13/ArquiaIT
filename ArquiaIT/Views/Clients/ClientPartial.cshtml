@@ -13,6 +13,7 @@
             @if (Model.ClientID > 0)
             {
                 @Html.DropDownListFor(model => model.ClientID, (SelectList)ViewBag.ClientList, new { @class = "NamePicker show-tick form-control", disabled = "true" })
+                @Html.HiddenFor(model => model.ClientID)
             }
             else
             {

@@ -1,55 +1,56 @@
-﻿@{
-    ViewBag.Title = "Contact";
-}
-<h2>Administraci&oacute;n</h2>
-<h3>Usuarios y combos</h3>
+﻿<div class="container body-content">
 
-<div class="row">&nbsp;</div>
-<div class="row">
-    <div class="col-md-4">
-        
-        <div class="navbar-collapse collapse">
-            <h3>USU&Aacute;RIOS</h3>
+    @{
+        ViewBag.Title = "Contact";
+    }
+    <h2>Administraci&oacute;n</h2>
+
+    <div class="row">&nbsp;</div>
+    <div class="row">
+        <div class="col-md-4">
+
+            <div class="navbar-collapse collapse">
+                <h3>USUARIOS</h3>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="navbar-collapse collapse">
+                <h3>TEL&Eacute;FONOS</h3>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="navbar-collapse collapse">
+                <h3>DOCUMENTOS</h3>
+            </div>
         </div>
     </div>
-    <div class="col-md-4">
-        <div class="navbar-collapse collapse">
-            <h3>TEL&Eacute;FONOS</h3>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Usuarios", "UserList", "Account")</li>
+                </ul>
+            </div>
         </div>
-    </div>
-    <div class="col-md-4">
-        <div class="navbar-collapse collapse">
-            <h3>DOCUMENTOS</h3>
+        <div class="col-md-4">
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Tipo de Teléfono", "Index", "TelephoneTypes")</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Tipos de Documento", "Index", "InvoiceCategories")</li>
+                </ul>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Estados", "Index", "InvoiceStatus")</li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
-
-<div class="row">
-    <div class="col-md-4">
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li>@Html.ActionLink("Usuários", "UserList", "Account")</li>
-            </ul>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li>@Html.ActionLink("Tipo de Teléfono", "Index", "TelephoneTypes")</li>
-            </ul>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li>@Html.ActionLink("Tipos de Documento", "Index", "InvoiceCategories")</li> 
-            </ul>
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li>@Html.ActionLink("Estados", "Index", "InvoiceStatus")</li>
-            </ul>
-        </div>
-    </div>
-</div>
-

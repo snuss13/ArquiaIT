@@ -15,14 +15,20 @@
 <hr />
 <div style="width:1000px;">
     @Html.Grid(Model).Columns(columns =>
-    {
-        columns.Add(c => c.Username).Titled("Nombre de Usuario");
-        columns.Add(c => c.Role).Titled("Rol").Filterable(true);
-        columns.Add(c => c.Email).Titled("E-mail").Filterable(true);
-        columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => Html.ActionLink("Editar", "Edit", "Manage", new { id = c.UserId }, new { }));
-        columns.Add().Encoded(false).Sanitized(false).SetWidth(130).RenderValueAs(c => Html.ActionLink("Cambiar Clave", "ChangePassword", "Manage", new { id = c.UserId }, new { }));
-        columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => Html.ActionLink("Borrar", "Delete", "Manage", new { id = c.UserId }, new { }));
-    }).WithPaging(20).Sortable(true)
+{
+    columns.Add(c => c.Username).Titled("Nombre de Usuario");
+    columns.Add(c => c.Role).Titled("Rol").Filterable(true);
+    columns.Add(c => c.Email).Titled("E-mail").Filterable(true);
+    columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => Html.ActionLink("Editar", "Edit", "Manage", new { id = c.UserId }, new { }));
+    columns.Add().Encoded(false).Sanitized(false).SetWidth(130).RenderValueAs(c => Html.ActionLink("Cambiar Clave", "ChangePassword", "Manage", new { id = c.UserId }, new { }));
+    columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => Html.ActionLink("Eliminar", "Delete", "Manage", new { id = c.UserId }, new { }));
+}).WithPaging(20).Sortable(true)
 </div>
 
+<hr />
+<p>
+    <div>
+        @Html.ActionLink("Volver", "Administration", "Home")
+    </div>
+</p>
 

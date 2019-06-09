@@ -1,27 +1,35 @@
 ﻿@model IEnumerable<ArquiaIT.Models.Business.InvoiceCategory>
 @using GridMvc.Html
 
-@{
-    ViewBag.Title = "Index";
-}
+<div class="container body-content">
+    @{
+        ViewBag.Title = "Index";
+    }
 
 
-<h2>Tipos de Documentos</h2>
+    <h2>Tipos de Documentos</h2>
 
-<p>
-    @Html.ActionLink("Nuevo", "Create")
-</p>
+    <p>
+        @Html.ActionLink("Nuevo", "Create")
+    </p>
 
-<hr />
-<div style="width:1000px;">
-    @Html.Grid(Model).Columns(columns =>
+    <hr />
+    <div style="width:1000px;">
+        @Html.Grid(Model).Columns(columns =>
     {
         columns.Add(c => c.Id).Titled("ID");
         columns.Add(c => c.Description).Titled("Tipo de Documento").Filterable(true);
         columns.Add(c => c.Active).Titled("Activo").Filterable(true);
         columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => Html.ActionLink("Editar", "Edit", new { id = c.Id }));
-        columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => Html.ActionLink("Detalles", "Details", new { id = c.Id }));
-        columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => Html.ActionLink("Borrar", "Delete", new { id = c.Id }));
+        columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => Html.ActionLink("Ver", "Details", new { id = c.Id }));
+        columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => Html.ActionLink("Eliminar", "Delete", new { id = c.Id }));
     }).WithPaging(20).Sortable(true)
-</div>
+    </div>
 
+    <hr />
+    <p>
+        <div>
+            @Html.ActionLink("Volver", "Administration", "Home")
+        </div>
+    </p>
+</div>

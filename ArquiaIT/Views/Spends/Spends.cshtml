@@ -1,0 +1,104 @@
+﻿@model ArquiaIT.Models.Business.Spend
+<div id="divSpends">
+    <hr />
+    <div class="row">
+        <div class="col-md-2">
+            @Html.Label("Valor", htmlAttributes: new { @class = "control-label" })
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.InvoiceValue, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.InvoiceValue, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="col-md-2">
+            @Html.LabelFor(model => model.IVA, htmlAttributes: new { @class = "control-label" })
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.IVA, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.IVA, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            &nbsp;
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            @Html.LabelFor(model => model.IIBB_ARBA, htmlAttributes: new { @class = "control-label" })
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.IIBB_ARBA, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.IIBB_ARBA, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-md-2">
+            @Html.LabelFor(model => model.ARCIBA, htmlAttributes: new { @class = "control-label" })
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.ARCIBA, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ARCIBA, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            &nbsp;
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            @Html.Label("Otros", htmlAttributes: new { @class = "control-label" })
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.OtherTaxes, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.OtherTaxes, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-md-2">
+            @Html.Label("Total Fact", htmlAttributes: new { @class = "control-label" })
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.InvoiceTotal, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.InvoiceTotal, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            &nbsp;
+        </div>
+    </div>
+
+    <hr />
+
+    <script>
+
+    $("#InvoiceValue").change(function () {
+        refreshScreen()
+    });
+
+    $("#OtherTaxes").change(function () {
+        refreshScreen()
+    });
+
+    function refreshScreen()
+    {
+        $.ajax({
+
+            url: '@Url.Action("Spends", "Spends")',
+            type: "GET",
+            dataType: "html",
+            data: { value: $("#InvoiceValue").val(), otherCharges: $("#OtherTaxes").val() },
+            success: function (data) {
+                $('#divSpends').html(data);
+            },
+            error: function () {
+                alert('Eror');
+            },
+        });
+    }
+
+    </script>
+</div>

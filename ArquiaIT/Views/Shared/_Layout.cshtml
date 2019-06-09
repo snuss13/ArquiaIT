@@ -50,10 +50,22 @@
     <script src="@Url.Content("~/Scripts/bootstrap-select.min.js")"></script>
     <script src="@Url.Content("~/Scripts/bootstrap-datepicker.min.js")"></script>
 
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-    </div>
+    @if (HttpContext.Current.Request.Url.PathAndQuery.Contains("/Invoices/Index") ||
+        HttpContext.Current.Request.Url.PathAndQuery.Contains("/Spends/Index"))
+    {
+        <div class="body-content">
+            @RenderBody()
+            <hr />
+        </div>
+    }
+    else
+    {
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+        </div>
+    }
+
     <div>
         <footer class="panel-footer">
             <p>&copy; @DateTime.Now.Year - ArquiaIT Fin Application</p>

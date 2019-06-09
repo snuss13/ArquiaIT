@@ -1,4 +1,6 @@
 ﻿@model ArquiaIT.Models.EditUserViewModel
+
+
 @{
     ViewBag.Title = "Edit User";
 }
@@ -11,7 +13,7 @@
     <h4>Edición</h4>
     <hr />
 
-    @Html.HiddenFor(m =>m.UserId, "")
+    @Html.HiddenFor(m => m.UserId, "")
     <div class="form-group">
         @Html.Label("Nmbre de Usuario", new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
@@ -30,7 +32,7 @@
         @Html.Label("Rol", new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
             @*@Html.DropDownList("Name")*@
-            @Html.DropDownListFor( m => m.UserRolID, (SelectList)ViewBag.Roles, new { @class = "form-control" })
+            @Html.DropDownListFor(m => m.UserRolID, (SelectList)ViewBag.Roles, new { @class = "form-control" })
         </div>
     </div>
 

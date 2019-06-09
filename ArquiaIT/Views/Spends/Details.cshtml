@@ -1,0 +1,130 @@
+﻿@model ArquiaIT.Models.Business.Spend
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Spend</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Vendor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Vendor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InvoiceNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InvoiceNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InvoiceDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InvoiceDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.POValueInDollars)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.POValueInDollars)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InvoiveValueInDollars)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InvoiveValueInDollars)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InvoiceValue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InvoiceValue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IVA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IVA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IIBB_ARBA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IIBB_ARBA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ARCIBA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ARCIBA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InvoiceTotal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InvoiceTotal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PayDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PayDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OtherTaxes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OtherTaxes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Invoice.InvoiceNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Invoice.InvoiceNumber)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

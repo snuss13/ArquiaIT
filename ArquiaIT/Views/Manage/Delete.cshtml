@@ -1,4 +1,5 @@
 ﻿@model ArquiaIT.Models.EditUserViewModel
+
 @{
     ViewBag.Title = "Delete User";
 }
@@ -17,7 +18,7 @@
         </div>
     </p>
 
-    @Html.HiddenFor(m =>m.UserId, "")
+    @Html.HiddenFor(m => m.UserId, "")
     <div class="form-group">
         @Html.Label("Nombre de Usuario", new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
@@ -25,7 +26,7 @@
         </div>
     </div>
 
-    <div class="form-group" >
+    <div class="form-group">
         @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
             @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @readonly = "readonly" })
@@ -36,7 +37,7 @@
         @Html.Label("Rol", new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
             @*@Html.DropDownList("Name")*@
-            @Html.DropDownListFor( m => m.UserRolID, (SelectList)ViewBag.Roles, new { @class = "form-control", @readonly = "readonly" })
+            @Html.DropDownListFor(m => m.UserRolID, (SelectList)ViewBag.Roles, new { @class = "form-control", @readonly = "readonly" })
         </div>
     </div>
 

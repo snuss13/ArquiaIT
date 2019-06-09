@@ -25,9 +25,10 @@ namespace ArquiaIT.Models.Business
         public decimal InvoiceValue { get; set; }
         public decimal IVA { get; set; }
         public Nullable<decimal> IIBB_ARBA { get; set; }
-        public Nullable<decimal> ARC_IVA { get; set; }
+        public Nullable<decimal> ARCIBA { get; set; }
         public decimal InvoiceTotal { get; set; }
         public Nullable<System.DateTime> PayDate { get; set; }
+        public Nullable<decimal> OtherTaxes { get; set; }
     
         public virtual Invoice Invoice { get; set; }
     }

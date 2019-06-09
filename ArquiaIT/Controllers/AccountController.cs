@@ -187,7 +187,7 @@ namespace ArquiaIT.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
@@ -196,9 +196,10 @@ namespace ArquiaIT.Controllers
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
                     await this.UserManager.AddToRoleAsync(user.Id, model.UserRoles);
-
-                    return RedirectToAction("Index", "Home");
+         
+                    return RedirectToAction("UserList", "Account");
                 }
+                ViewBag.Roles = new SelectList((new ApplicationDbContext()).Roles.OrderByDescending(x => x.Name).ToList(), "Name", "Name");
                 AddErrors(result);
             }
 

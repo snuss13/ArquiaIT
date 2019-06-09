@@ -20,7 +20,14 @@
         columns.Add(c => c.Description).Titled("Estado").Filterable(true);
         columns.Add(c => c.Active).Titled("Activo").Filterable(true);
         columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => Html.ActionLink("Editar", "Edit", new { id = c.Id }));
-        columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => Html.ActionLink("Detalles", "Details", new { id = c.Id }));
-        columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => Html.ActionLink("Borrar", "Delete", new { id = c.Id }));
+        columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => Html.ActionLink("Ver", "Details", new { id = c.Id }));
+        columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => Html.ActionLink("Eliminar", "Delete", new { id = c.Id }));
     }).WithPaging(20).Sortable(true)
 </div>
+
+<hr />
+<p>
+    <div>
+        @Html.ActionLink("Volver", "Administration", "Home")
+    </div>
+</p>

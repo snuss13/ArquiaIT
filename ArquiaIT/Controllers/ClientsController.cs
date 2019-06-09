@@ -16,17 +16,17 @@ namespace ArquiaIT.Controllers
         private ArquiaEntities db = new ArquiaEntities();
 
         // GET: Clients
-        public ViewResult Index( bool? showAll) //string sortOrder,
+        public ViewResult Index() //string sortOrder,
         {
 
             //ViewBag.SortParm = String.IsNullOrEmpty(sortOrder) ? sortOrder : "";
             
             List<Client> clients = db.Client.ToList();
 
-            if ( !showAll.HasValue || showAll.Value == false)
-            {
-                clients = clients.Where(x => x.Active  == true).ToList();
-            }
+            //if ( !showAll.HasValue || showAll.Value == false)
+            //{
+            //    clients = clients.Where(x => x.Active  == true).ToList();
+            //}
 
             return View(clients);
         }
