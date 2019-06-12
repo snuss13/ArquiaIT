@@ -573,6 +573,7 @@
     <Content Include="Views\Retentions\Details.cshtml" />
     <Content Include="Views\Retentions\Edit.cshtml" />
     <Content Include="Views\Retentions\Index.cshtml" />
+    <Content Include="Views\Invoices\InvoiceDetailEdit.cshtml" />
     <None Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
