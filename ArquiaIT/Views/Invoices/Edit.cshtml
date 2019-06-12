@@ -24,7 +24,7 @@
             <div class="col-md-12">
                 <ul >
                     <li class="active btn btn-default"><a href="#tab1default" data-toggle="tab">Facturas</a></li>
-                    <li class="btn btn-default">@Html.ActionLink("Gastos", "Delete", "PurchaseOrderLines", new { @class = "btn btn-default", FactId = Model.Id }, null)</li>
+                    <li class="btn btn-default">@Html.ActionLink("Gastos", "InvoiceSpends", "Spends", new { invoiceID = Model.Id}, null)</li>
                 </ul>
             </div>
         </div>

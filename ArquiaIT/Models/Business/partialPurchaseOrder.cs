@@ -20,5 +20,6 @@ namespace ArquiaIT.Models.Business
                 return this.PurchaseOrderLines.Where(x => x.ValueInDollars.HasValue).Sum(x =>  x.ValueInDollars.Value);
             }
         }
+
     }
 }

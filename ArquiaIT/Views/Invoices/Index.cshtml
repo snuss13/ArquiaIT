@@ -28,6 +28,7 @@
     columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => Html.ActionLink("Editar", "Edit", new { id = c.Id }));
     columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => Html.ActionLink("Ver", "Details", new { id = c.Id }));
     columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => Html.ActionLink("Eliminar", "Delete", new { id = c.Id }));
+    columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => c.Retention.Count == 0 ? Html.ActionLink("Retenciones", "Create", "Retentions", new { invoiceId = c.Id }, null): Html.ActionLink("Retenciones", "Details", "Retentions", new { id = c.Id }, null));
 }).WithPaging(20).Sortable(true)
 
 

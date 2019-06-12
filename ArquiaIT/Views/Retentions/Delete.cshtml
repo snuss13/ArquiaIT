@@ -1,0 +1,80 @@
+﻿@model ArquiaIT.Models.Business.Retention
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Retention</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Ganancias)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ganancias)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IVA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IVA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SUSS)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SUSS)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IIBB)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IIBB)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IIBBSpends)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IIBBSpends)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Others)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Others)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Invoice.InvoiceNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Invoice.InvoiceNumber)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

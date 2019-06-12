@@ -1,0 +1,75 @@
+﻿@model ArquiaIT.Models.Business.Retention
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Retention</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Invoice.InvoiceNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Invoice.InvoiceNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ganancias)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ganancias)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IVA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IVA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SUSS)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SUSS)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IIBB)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IIBB)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IIBBSpends)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IIBBSpends)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Others)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Others)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Borrar", "Delete", new { id = Model.Id }) |
+    @Html.ActionLink("Volver", "Index", "Invoices", new { id = Model.InvoiceID}, null)
+</p>

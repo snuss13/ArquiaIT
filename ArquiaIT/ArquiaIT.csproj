@@ -183,6 +183,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PurchaseOrderLinesController.cs" />
     <Compile Include="Controllers\PurchaseOrdersController.cs" />
+    <Compile Include="Controllers\RetentionsController.cs" />
     <Compile Include="Controllers\SpendsController.cs" />
     <Compile Include="Controllers\TelephonesController.cs" />
     <Compile Include="Controllers\TelephoneTypesController.cs" />
@@ -567,6 +568,11 @@
     <Content Include="Views\Invoices\Edit.cshtml" />
     <Content Include="Views\Invoices\Index.cshtml" />
     <Content Include="Views\PurchaseOrders\PurchaseOrderPartial.cshtml" />
+    <Content Include="Views\Retentions\Create.cshtml" />
+    <Content Include="Views\Retentions\Delete.cshtml" />
+    <Content Include="Views\Retentions\Details.cshtml" />
+    <Content Include="Views\Retentions\Edit.cshtml" />
+    <Content Include="Views\Retentions\Index.cshtml" />
     <None Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
@@ -611,6 +617,7 @@
     <Content Include="Views\Spends\Edit.cshtml" />
     <Content Include="Views\Spends\Index.cshtml" />
     <Content Include="Views\Spends\Spends.cshtml" />
+    <Content Include="Views\Spends\InvoiceSpends.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

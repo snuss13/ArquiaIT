@@ -17,7 +17,14 @@ namespace ArquiaIT.Controllers
         // GET: Spends
         public ActionResult Index()
         {
-            var spend = db.Spend.Include(s => s.Invoice);
+            var spend = db.Spend;
+            return View(spend.ToList());
+        }
+        
+        // GET: Spends
+        public ActionResult InvoiceSpends(int invoiceID)
+        {
+            var spend = db.Spend.Where(x => x.InvoiceID == invoiceID).Include(s => s.Invoice);
             return View(spend.ToList());
         }
 
