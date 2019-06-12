@@ -19,6 +19,14 @@
 
         @Html.Partial("~/Views/PurchaseOrders/PurchaseOrderPartial.cshtml", Model.PurchaseOrderLine.PurchaseOrder)
 
+        @if (this.User.IsInRole("Administrator"))
+        {
+            @Html.Hidden("isAdmin", true)
+        }
+        else
+        {
+            @Html.Hidden("isAdmin", false)
+        }
 
         <div class="row">
             <div class="col-md-12">
@@ -65,11 +73,24 @@
     {
         format: 'dd/mm/yyyy'
     });
+    
     $(document).ready(function () {
         $("#InvoiceTotal").prop("readonly", true);
         $("#ValueInPesos").prop("readonly", true);
         $("#ValueInDollars").prop("readonly", true);
         $("#ChangeRate").prop("readonly", true);
-        $("#PayDate").prop("readonly", true);
+
+        if ($("#isAdmin").val() == "False")
+        {
+            $("#PayDate").prop("readonly", true);
+            $("#InvoiceNumber").prop("readonly", true);
+        }
+        else {
+            $("#PayDate").datepicker(
+            {
+                format: 'dd/mm/yyyy'
+            });
+        }
+
     });
 </script>
