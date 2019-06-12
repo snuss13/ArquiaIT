@@ -79,7 +79,7 @@
                 @Html.Label("Total Orden de Compra", htmlAttributes: new { @class = "control-label" })
             </div>
             <div class="col-md-4">
-                <input type="text" value="@String.Format("{0:c}", ViewBag.TotalPO)" class="form-control" disabled/>
+                <input type="text" value="@String.Format("{0:c}", Model.POTotal)" class="form-control" disabled/>
             </div>
         </div>
 

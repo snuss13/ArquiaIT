@@ -4,77 +4,75 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
+<h2>Retenciones</h2>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Retention</h4>
+<div class="form-horizontal">
+    
+    <h4>Eliminar</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Ganancias)
-        </dt>
+    <p>
+        <div class="Warning">
+            ¿Est&aacute; seguro que desea eliminar esta retenci&oacute;n?
+        </div>
+    </p>
 
-        <dd>
-            @Html.DisplayFor(model => model.Ganancias)
-        </dd>
+    <div class="form-group">
+        @Html.LabelFor(model => model.InvoiceID, "InvoiceID", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("InvoiceID", null, htmlAttributes: new { @class = "form-control", disabled = "true" })
+        </div>
+    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.IVA)
-        </dt>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Ganancias, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Ganancias, new { htmlAttributes = new { @class = "form-control", disabled = "true" } })
+        </div>
+    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.IVA)
-        </dd>
+    <div class="form-group">
+        @Html.LabelFor(model => model.IVA, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.IVA, new { htmlAttributes = new { @class = "form-control", disabled = "true" } })
+        </div>
+    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.SUSS)
-        </dt>
+    <div class="form-group">
+        @Html.LabelFor(model => model.SUSS, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.SUSS, new { htmlAttributes = new { @class = "form-control", disabled = "true" } })
+        </div>
+    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.SUSS)
-        </dd>
+    <div class="form-group">
+        @Html.LabelFor(model => model.IIBB, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.IIBB, new { htmlAttributes = new { @class = "form-control", disabled = "true" } })
+        </div>
+    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.IIBB)
-        </dt>
+    <div class="form-group">
+        @Html.Label("Gastos IIBB + Imp CHQ", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.IIBBSpends, new { htmlAttributes = new { @class = "form-control", disabled = "true" } })
+        </div>
+    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.IIBB)
-        </dd>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Others, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Others, new { htmlAttributes = new { @class = "form-control", disabled = "true" } })
+        </div>
+    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.IIBBSpends)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.IIBBSpends)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Others)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Others)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Invoice.InvoiceNumber)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Invoice.InvoiceNumber)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            @Html.ActionLink("Volver", "Index", "Invoices")
         </div>
     }
 </div>

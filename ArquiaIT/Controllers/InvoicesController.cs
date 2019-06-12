@@ -23,7 +23,7 @@ namespace ArquiaIT.Controllers
         }
 
         // GET: Invoices/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? id, string src)
         {
             if (id == null)
             {
@@ -34,6 +34,7 @@ namespace ArquiaIT.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.Source = src;
             return View(invoice);
         }
 
@@ -84,7 +85,7 @@ namespace ArquiaIT.Controllers
         }
 
         // GET: Invoices/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? id, string src)
         {
             if (id == null)
             {
@@ -99,6 +100,7 @@ namespace ArquiaIT.Controllers
             ViewBag.CategoryID = new SelectList(db.InvoiceCategories, "Id", "Description", invoice.CategoryID);
             ViewBag.POLineID = new SelectList(db.PurchaseOrderLines, "Id", "Description", invoice.POLineID);
             ViewBag.StatusID = new SelectList(db.InvoiceStatus1, "Id", "Description", invoice.StatusID);
+            ViewBag.Source = src;
             return View(invoice);
         }
 

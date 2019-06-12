@@ -1,0 +1,17 @@
+﻿@model ArquiaIT.Models.Business.PurchaseOrder
+@using GridMvc.Html
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h4>Detalle</h4>
+
+
+@Html.Grid(Model.PurchaseOrderLines).Columns(columns =>
+{
+    columns.Add(c => c.Description).Titled("Descripcion").Filterable(true);
+    columns.Add(c => c.ValueInPesos).Titled("Total AR$").Filterable(true).Format("{0:c}");
+    columns.Add(c => c.ValueInDollars).Titled("Total U$D").Filterable(true).Format("{0:c}");
+    columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => c.Invoices.Count == 0 ? Html.Label("") : Html.ActionLink("Ver Factura", "Details", "Invoices", new { id = c.Invoices.FirstOrDefault().Id, src = ViewData["src"] }, null)).SetWidth("100px");
+}).WithPaging(20).Sortable(true)

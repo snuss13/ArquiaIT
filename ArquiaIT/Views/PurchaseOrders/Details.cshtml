@@ -4,55 +4,96 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Orden de Compra</h2>
 
-<div>
-    <h4>PurchaseOrder</h4>
+<div class="form-horizontal">
+    <h4>Detalle</h4>
+
+    @Html.Partial("~/Views/Clients/ClientPartial.cshtml", Model)
+
+    <div class="row">
+        <div class="col-md-2">
+            @Html.Label("Orden Compra", htmlAttributes: new { @class = "control -label" })
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.PONumber, new { htmlAttributes = new { @class = "form-control", disabled = "true" } })
+        </div>
+        <div class="col-md-2">
+            @Html.Label("Fecha", htmlAttributes: new { @class = "control-label" })
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" , disabled = "true"} })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            &nbsp;
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            @Html.Label("Dolar", htmlAttributes: new { @class = "control-label" })
+        </div>
+        <div class="col-md-4">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.IsDolar)
+            </div>
+        </div>
+        @*<div id="ChangeRateDiv" style="display:none">*@
+        <div class="col-md-2">
+            @Html.Label("Cambio del día", htmlAttributes: new { @class = "control-label" })
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.ChangeRate, new { htmlAttributes = new { @class = "form-control" , disabled = "true"} })
+        </div>
+        @*</div>*@
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            &nbsp;
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            @Html.Label("Total Orden de Compra", htmlAttributes: new { @class = "control-label" })
+        </div>
+        <div class="col-md-4">
+            <input type="text" value="@String.Format("{0:c}", Model.POTotal)" class="form-control" disabled />
+        </div>
+    </div>
+
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.PONumber)
-        </dt>
+    <div class="row">
+        <div class="col-md-12">
+            &nbsp;
+        </div>
+    </div>
+    
+    @Html.Partial("~/Views/PurchaseOrderLines/IndexView.cshtml", Model, new ViewDataDictionary { { "src", "POView" } })
 
-        <dd>
-            @Html.DisplayFor(model => model.PONumber)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Date)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Date)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IsDolar)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IsDolar)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ChangeRate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ChangeRate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Client.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Client.Name)
-        </dd>
-
-    </dl>
+    <hr />
+    <div class="row">
+        <div class="col-md-12">
+            &nbsp;
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            @Html.ActionLink("Editar", "Edit", new { id = Model.Id }) |
+            @Html.ActionLink("Volver", "Index")
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+
+
+
+
+
+
+
+

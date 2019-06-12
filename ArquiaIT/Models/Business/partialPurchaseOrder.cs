@@ -21,5 +21,12 @@ namespace ArquiaIT.Models.Business
             }
         }
 
+        public decimal POTotal
+        {
+            get
+            {
+                return this.PurchaseOrderLines.Where(x => x.Value.HasValue).Sum(x => x.Value.Value);
+            }
+        }
     }
 }

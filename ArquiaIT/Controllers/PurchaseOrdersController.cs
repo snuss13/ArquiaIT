@@ -35,6 +35,8 @@ namespace ArquiaIT.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.ClientID = new SelectList(db.Client, "Id", "Name", purchaseOrder.ClientID);
+
             return View(purchaseOrder);
         }
 
@@ -84,8 +86,6 @@ namespace ArquiaIT.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.TotalPO = purchaseOrder.PurchaseOrderLines.Sum(x => x.Value);
-
             ViewBag.ClientID = new SelectList(db.Client, "Id", "Name", purchaseOrder.ClientID);
             return View(purchaseOrder);
         }
@@ -123,6 +123,7 @@ namespace ArquiaIT.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.ClientID = new SelectList(db.Client, "Id", "Name", purchaseOrder.ClientID);
             return View(purchaseOrder);
         }
 

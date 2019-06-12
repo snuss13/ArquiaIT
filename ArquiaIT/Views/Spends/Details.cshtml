@@ -4,127 +4,148 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Gastos</h2>
 
-<div>
-    <h4>Spend</h4>
+<div class="form-horizontal">
+    <h4>Detalle</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Vendor)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Vendor)
-        </dd>
+    <div class="row">
+        <div class="col-md-2">
+            @Html.Label("Cliente", htmlAttributes: new { @class = "control-label" })
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.Vendor, new { htmlAttributes = new { @class = "form-control" , disabled = "true"} })
+        </div>
+        <div class="col-md-2">
+            @Html.Label("Numero Fact", htmlAttributes: new { @class = "control-label" })
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.InvoiceNumber, new { htmlAttributes = new { @class = "form-control" , disabled = "true"} })
+        </div>
+    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+    <div class="row">
+        <div class="col-md-12">
+            &nbsp;
+        </div>
+    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
+    <div class="row">
+        <div class="col-md-2">
+            @Html.Label("Descripcion", htmlAttributes: new { @class = "control-label" })
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" , disabled = "true"} })
+        </div>
+        <div class="col-md-2">
+            @Html.Label("Fecha Fact", htmlAttributes: new { @class = "control-label" })
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.InvoiceDate, new { htmlAttributes = new { @class = "form-control" , disabled = "true"} })
+        </div>
+    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.InvoiceNumber)
-        </dt>
+    <div class="row">
+        <div class="col-md-12">
+            &nbsp;
+        </div>
+    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.InvoiceNumber)
-        </dd>
+    <div class="row">
+        <div class="col-md-2">
+            @Html.Label("Fecha Pago", htmlAttributes: new { @class = "control-label" })
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.PayDate, new { htmlAttributes = new { @class = "form-control" , disabled = "true"} })
+        </div>
+    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.InvoiceDate)
-        </dt>
+    <div class="row">
+        <div class="col-md-12">
+            &nbsp;
+        </div>
+    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.InvoiceDate)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.POValueInDollars)
-        </dt>
+    <hr />
+    <div class="row">
+        <div class="col-md-2">
+            @Html.Label("Valor", htmlAttributes: new { @class = "control-label" })
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.InvoiceValue, new { htmlAttributes = new { @class = "form-control" , disabled = "true"} })
+            @Html.ValidationMessageFor(model => model.InvoiceValue, "", new { @class = "text-danger" })
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.POValueInDollars)
-        </dd>
+        <div class="col-md-2">
+            @Html.LabelFor(model => model.IVA, htmlAttributes: new { @class = "control-label" })
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.IVA, new { htmlAttributes = new { @class = "form-control" , disabled = "true"} })
+            @Html.ValidationMessageFor(model => model.IVA, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.InvoiveValueInDollars)
-        </dt>
+    <div class="row">
+        <div class="col-md-12">
+            &nbsp;
+        </div>
+    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.InvoiveValueInDollars)
-        </dd>
+    <div class="row">
+        <div class="col-md-2">
+            @Html.LabelFor(model => model.IIBB_ARBA, htmlAttributes: new { @class = "control-label" })
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.IIBB_ARBA, new { htmlAttributes = new { @class = "form-control" , disabled = "true"} })
+            @Html.ValidationMessageFor(model => model.IIBB_ARBA, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-md-2">
+            @Html.LabelFor(model => model.ARCIBA, htmlAttributes: new { @class = "control-label" })
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.ARCIBA, new { htmlAttributes = new { @class = "form-control" , disabled = "true"} })
+            @Html.ValidationMessageFor(model => model.ARCIBA, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.InvoiceValue)
-        </dt>
+    <div class="row">
+        <div class="col-md-12">
+            &nbsp;
+        </div>
+    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.InvoiceValue)
-        </dd>
+    <div class="row">
+        <div class="col-md-2">
+            @Html.Label("Otros", htmlAttributes: new { @class = "control-label" })
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.OtherTaxes, new { htmlAttributes = new { @class = "form-control" , disabled = "true"} })
+            @Html.ValidationMessageFor(model => model.OtherTaxes, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-md-2">
+            @Html.Label("Total Fact", htmlAttributes: new { @class = "control-label" })
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.InvoiceTotal, new { htmlAttributes = new { @class = "form-control" , disabled = "true"} })
+            @Html.ValidationMessageFor(model => model.InvoiceTotal, "", new { @class = "text-danger" })
+        </div>
+    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.IVA)
-        </dt>
+    <div class="row">
+        <div class="col-md-12">
+            &nbsp;
+        </div>
+    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.IVA)
-        </dd>
+    <hr />
 
-        <dt>
-            @Html.DisplayNameFor(model => model.IIBB_ARBA)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.IIBB_ARBA)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ARCIBA)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ARCIBA)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.InvoiceTotal)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.InvoiceTotal)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PayDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PayDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.OtherTaxes)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.OtherTaxes)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Invoice.InvoiceNumber)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Invoice.InvoiceNumber)
-        </dd>
-
-    </dl>
+    <div class="row">
+        <div class="col-md-112">
+           @Html.ActionLink("Editar", "Edit", new { id = Model.Id }) | @Html.ActionLink("Volver", "Index")
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+

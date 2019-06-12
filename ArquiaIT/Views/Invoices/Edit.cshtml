@@ -23,8 +23,8 @@
         <div class="row">
             <div class="col-md-12">
                 <ul >
-                    <li class="active btn btn-default"><a href="#tab1default" data-toggle="tab">Facturas</a></li>
-                    <li class="btn btn-default">@Html.ActionLink("Gastos", "InvoiceSpends", "Spends", new { invoiceID = Model.Id}, null)</li>
+                    <li class="active btn btn-default"><a href="#tabInvoiceDetails" data-toggle="tab">Facturas</a></li>
+                    <li class="btn btn-default"><a href="#tabSpends" data-toggle="tab">Gastos</a></li>
                 </ul>
             </div>
         </div>
@@ -32,6 +32,8 @@
         <hr>
 
         @Html.Partial("~/Views/Invoices/InvoiceDetailEdit.cshtml", Model)
+
+        @*@Html.Partial("~/Views/Spends/Index.cshtml", Model.Spend)*@
 
         <div class="row">
             <div class="col-md-12">
@@ -44,7 +46,15 @@
                 <input type="submit" value="Actualizar" class="btn btn-default" />
             </div>
             <div class="col-md-10">
-                @Html.ActionLink("Volver", "Index")
+                @if (ViewBag.Source == "PO")
+                {
+                    @Html.ActionLink("Volver", "Edit", "PurchaseOrders", new { id = Model.PurchaseOrderLine.POID }, null)
+                }
+                else
+                {
+                    @Html.ActionLink("Volver", "Index")
+                }
+                    
             </div>
         </div>
 

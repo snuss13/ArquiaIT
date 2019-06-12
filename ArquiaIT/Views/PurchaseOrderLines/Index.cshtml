@@ -19,10 +19,7 @@
     columns.Add(c => c.ValueInPesos).Titled("Total AR$").Filterable(true).Format("{0:c}");
     columns.Add(c => c.ValueInDollars).Titled("Total U$D").Filterable(true).Format("{0:c}");
 
-    //columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => Html.ActionLink("Facturar", "Create", "Invoices", new { POLineId = c.Id }, null));
-    columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => c.Invoices.Count == 0 ?  Html.ActionLink("Facturar", "Create", "Invoices", new { POLineId = c.Id }, null) : Html.ActionLink("Ver Factura", "Edit", "Invoices", new { id = c.Invoices.FirstOrDefault().Id }, null));
-    //    columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c =>  );
-
+    columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => c.Invoices.Count == 0 ?  Html.ActionLink("Facturar", "Create", "Invoices", new { POLineId = c.Id }, null) : Html.ActionLink("Ver Factura", "Edit", "Invoices", new { id = c.Invoices.FirstOrDefault().Id, src = "PO" }, null)).SetWidth("100px");
     columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => Html.ActionLink("Editar", "Edit", "PurchaseOrderLines", new { id = c.Id }, null));
     columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => Html.ActionLink("Ver", "Details", "PurchaseOrderLines", new { id = c.Id }, null));
     columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => Html.ActionLink("Eliminar", "Delete", "PurchaseOrderLines", new { id = c.Id }, null));

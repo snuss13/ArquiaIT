@@ -33,6 +33,8 @@ namespace ArquiaIT.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.InvoiceID = new SelectList(db.Invoices, "Id", "InvoiceNumber", retention.InvoiceID);
+
             return View(retention);
         }
 
@@ -117,6 +119,8 @@ namespace ArquiaIT.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.InvoiceID = new SelectList(db.Invoices, "Id", "InvoiceNumber", retention.InvoiceID);
+
             return View(retention);
         }
 

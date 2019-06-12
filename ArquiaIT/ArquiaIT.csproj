@@ -574,6 +574,7 @@
     <Content Include="Views\Retentions\Edit.cshtml" />
     <Content Include="Views\Retentions\Index.cshtml" />
     <Content Include="Views\Invoices\InvoiceDetailEdit.cshtml" />
+    <Content Include="Views\PurchaseOrderLines\IndexView.cshtml" />
     <None Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
@@ -618,7 +619,6 @@
     <Content Include="Views\Spends\Edit.cshtml" />
     <Content Include="Views\Spends\Index.cshtml" />
     <Content Include="Views\Spends\Spends.cshtml" />
-    <Content Include="Views\Spends\InvoiceSpends.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
