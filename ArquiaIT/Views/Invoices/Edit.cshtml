@@ -17,6 +17,9 @@
 
         @Html.HiddenFor(model => model.POLineID)
 
+        @Html.Partial("~/Views/PurchaseOrders/PurchaseOrderPartial.cshtml", Model.PurchaseOrderLine.PurchaseOrder)
+
+
         <div class="row">
             <div class="col-md-12">
                 <ul >

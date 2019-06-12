@@ -95,6 +95,7 @@ namespace ArquiaIT.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.ClientList = new SelectList(db.Client.Where(x => x.Active == true).OrderBy(x => x.Name).ToList(), "ID", "Name");
             ViewBag.CategoryID = new SelectList(db.InvoiceCategories, "Id", "Description", invoice.CategoryID);
             ViewBag.POLineID = new SelectList(db.PurchaseOrderLines, "Id", "Description", invoice.POLineID);
             ViewBag.StatusID = new SelectList(db.InvoiceStatus1, "Id", "Description", invoice.StatusID);
@@ -119,6 +120,7 @@ namespace ArquiaIT.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.CategoryID = new SelectList(db.InvoiceCategories, "Id", "Description", invoice.CategoryID);
+            ViewBag.ClientList = new SelectList(db.Client.Where(x => x.Active == true).OrderBy(x => x.Name).ToList(), "ID", "Name");
             ViewBag.POLineID = new SelectList(db.PurchaseOrderLines, "Id", "Description", invoice.POLineID);
             ViewBag.StatusID = new SelectList(db.InvoiceStatus1, "Id", "Description", invoice.StatusID);
             return View(invoice);

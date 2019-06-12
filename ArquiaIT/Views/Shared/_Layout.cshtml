@@ -51,7 +51,9 @@
     <script src="@Url.Content("~/Scripts/bootstrap-datepicker.min.js")"></script>
 
     @if (HttpContext.Current.Request.Url.PathAndQuery.Contains("/Invoices/Index") ||
-        HttpContext.Current.Request.Url.PathAndQuery.Contains("/Spends/Index"))
+        HttpContext.Current.Request.Url.PathAndQuery.EndsWith("/Invoices") || HttpContext.Current.Request.Url.PathAndQuery.EndsWith("/Invoices/") ||
+        HttpContext.Current.Request.Url.PathAndQuery.Contains("/Spends/Index") ||
+        HttpContext.Current.Request.Url.PathAndQuery.EndsWith("/Spends") || HttpContext.Current.Request.Url.PathAndQuery.EndsWith("/Spends/"))
     {
         <div class="body-content">
             @RenderBody()
