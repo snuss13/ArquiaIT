@@ -14,9 +14,10 @@
 @Html.Grid(Model).Columns(columns =>
 {
     columns.Add(c => c.Vendor).Titled("Cliente").Filterable(true);
-    columns.Add(c => c.InvoiceNumber).Titled("Numero Fact").Filterable(true);
+    columns.Add(c => c.InvoiceNumber).Titled("Número Fact").Filterable(true);
     columns.Add(c => c.Description).Titled("Descripción").Filterable(true);
     columns.Add(c => c.SpendMonth).Titled("Mes").Filterable(true);
+    columns.Add(c => c.InvoiceDate.Year).Titled("Año").Filterable(true);
     columns.Add(c => c.InvoiceDate).Titled("Fecha").Filterable(true).Format("{0:dd/MM/yyyy}");
     columns.Add(c => c.InvoiceValue).Titled("Valor Sin IVA").Filterable(true).Format("{0:c}");
     columns.Add(c => c.IVA).Titled("IVA").Filterable(true).Format("{0:c}");
@@ -28,7 +29,7 @@
     columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => Html.ActionLink("Editar", "Edit", new { id = c.Id }));
     columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => Html.ActionLink("Ver", "Details", new { id = c.Id }));
     columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => Html.ActionLink("Eliminar", "Delete", new { id = c.Id }));
-}).WithPaging(20).Sortable(true)
+}).WithPaging(50).Sortable(true)
 
 
         

@@ -87,7 +87,14 @@
                 <input type="submit" value="Crear" class="btn btn-default" />
             </div>
             <div class="col-md-10">
-                @Html.ActionLink("Volver", "Index")
+                @if (ViewBag.InvoiceID > 0)
+                {
+                    @Html.ActionLink("Volver", "Edit", "Invoices", new { id = ViewData["InvoiceID"] }, null)
+                }
+                else{ 
+                    @Html.ActionLink("Volver", "Index")
+                }
+                    
             </div>
         </div>
     </div>

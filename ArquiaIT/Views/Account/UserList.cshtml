@@ -22,7 +22,7 @@
     columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => Html.ActionLink("Editar", "Edit", "Manage", new { id = c.UserId }, new { }));
     columns.Add().Encoded(false).Sanitized(false).SetWidth(130).RenderValueAs(c => Html.ActionLink("Cambiar Clave", "ChangePassword", "Manage", new { id = c.UserId }, new { }));
     columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => Html.ActionLink("Eliminar", "Delete", "Manage", new { id = c.UserId }, new { }));
-}).WithPaging(20).Sortable(true)
+}).WithPaging(50).Sortable(true)
 </div>
 
 <hr />

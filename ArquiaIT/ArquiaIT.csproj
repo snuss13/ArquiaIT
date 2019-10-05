@@ -44,8 +44,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GridMvc, Version=2.0.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Grid.Mvc.Redux.1.0.4\lib\GridMvc.dll</HintPath>
+    <Reference Include="GridMvc, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Grid.Mvc.3.0.0\lib\net40\GridMvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -53,6 +53,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MVCGrid, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MVCGrid.Net.1.0.0.61\lib\net40\MVCGrid.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -107,6 +111,10 @@
     <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
@@ -171,6 +179,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\MVCGridConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="BusinessRules\SystemConfiguration.cs" />
@@ -265,8 +274,6 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Gridmvc.css" />
-    <Content Include="Content\gridmvc.datepicker.css" />
-    <Content Include="Content\gridmvc.datepicker.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -300,8 +307,9 @@
     <Content Include="Models\Business\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
-    <Content Include="Scripts\gridmvc.customwidgets.js" />
-    <Content Include="Scripts\gridmvc.lang.fr.js" />
+    <Content Include="Scripts\gridmvc.js" />
+    <Content Include="Scripts\gridmvc.lang.ru.js" />
+    <Content Include="Scripts\gridmvc.min.js" />
     <Content Include="Scripts\i18n\defaults-am_ET.js" />
     <Content Include="Scripts\i18n\defaults-am_ET.min.js" />
     <Content Include="Scripts\i18n\defaults-ar_AR.js" />
@@ -422,11 +430,7 @@
     <Content Include="Content\bootstrap-datepicker3.css.map" />
     <Content Include="Content\bootstrap-datepicker.standalone.css.map" />
     <Content Include="Content\bootstrap-datepicker.css.map" />
-    <Content Include="Scripts\gridmvc.min.js.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\gridmvc.js" />
-    <Content Include="Scripts\gridmvc.lang.ru.js" />
-    <Content Include="Scripts\gridmvc.min.js" />
     <Content Include="Scripts\i18n\defaults-zh_TW.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -549,8 +553,6 @@
     <Content Include="Views\Clients\Details.cshtml" />
     <Content Include="Views\Clients\Edit.cshtml" />
     <Content Include="Views\Clients\Index.cshtml" />
-    <Content Include="Views\Shared\_Grid.cshtml" />
-    <Content Include="Views\Shared\_GridPager.cshtml" />
     <Content Include="Views\PurchaseOrders\Create.cshtml" />
     <Content Include="Views\PurchaseOrders\Delete.cshtml" />
     <Content Include="Views\PurchaseOrders\Details.cshtml" />
@@ -575,6 +577,8 @@
     <Content Include="Views\Retentions\Index.cshtml" />
     <Content Include="Views\Invoices\InvoiceDetailEdit.cshtml" />
     <Content Include="Views\PurchaseOrderLines\IndexView.cshtml" />
+    <Content Include="Views\Shared\_GridPager.cshtml" />
+    <Content Include="Views\Shared\_Grid.cshtml" />
     <None Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
@@ -619,6 +623,10 @@
     <Content Include="Views\Spends\Edit.cshtml" />
     <Content Include="Views\Spends\Index.cshtml" />
     <Content Include="Views\Spends\Spends.cshtml" />
+    <Content Include="Views\Spends\InvoiceSpend.cshtml" />
+    <Content Include="Views\Spends\EditFromInvoice.cshtml" />
+    <Content Include="Views\Spends\DeleteFromInvoice.cshtml" />
+    <Content Include="Views\Spends\DetailsFromInvoice.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

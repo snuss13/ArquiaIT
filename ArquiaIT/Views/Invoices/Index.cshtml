@@ -8,13 +8,15 @@
 <h2>Facturas</h2>
 
 @*<p>
-    @Html.ActionLink("Create New", "Create")
-</p>*@
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+
 
 @Html.Grid(Model).Columns(columns =>
 {
     columns.Add(c => c.InvoiceNumber).Titled("Número").Filterable(true);
     columns.Add(c => c.PurchaseOrderLine.PurchaseOrder.Client.Name).Titled("Cliente").Filterable(true);
+    columns.Add(c => c.InvoiceDate.Year).Titled("Año").Filterable(true);
     columns.Add(c => c.InvoiceDate).Titled("Fecha").Filterable(true).Format("{0:dd/MM/yyyy}");
     columns.Add(c => c.ValueInPesos).Titled("Valor AR$").Filterable(true).Format("{0:c}");
     columns.Add(c => c.ValueInDollars).Titled("Valor U$D").Filterable(true).Format("{0:c}");
@@ -25,11 +27,21 @@
     columns.Add(c => c.InvoiceCategory.Description).Titled("Categoría").Filterable(true);
     columns.Add(c => c.PurchaseOrderLine.PurchaseOrder.PONumber).Titled("Orden Compra").Filterable(true);
     columns.Add(c => c.InvoiceStatus.Description).Titled("Estado").Filterable(true);
-    columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => Html.ActionLink("Editar", "Edit", new { id = c.Id }));
+    columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => (c.InvoiceStatus.Description == "Cobrado" && !User.IsInRole("Administrator")) ? Html.Label("Editar") : Html.ActionLink("Editar", "Edit", new { id = c.Id }));
     columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => Html.ActionLink("Ver", "Details", new { id = c.Id }));
-    columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => Html.ActionLink("Eliminar", "Delete", new { id = c.Id }));
-    columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => c.Retention.Count == 0 ? Html.ActionLink("Retenciones", "Create", "Retentions", new { invoiceId = c.Id }, null): Html.ActionLink("Retenciones", "Details", "Retentions", new { id = c.Id }, null));
-}).WithPaging(20).Sortable(true)
+    columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => c.InvoiceStatus.Description == "Cobrado" ? Html.Label("Eliminar") : Html.ActionLink("Eliminar", "Delete", new { id = c.Id }));
+    columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => c.Retention.Count == 0 ? Html.ActionLink("Retenciones", "Create", "Retentions", new { invoiceId = c.Id }, null) : Html.ActionLink("Retenciones", "Details", "Retentions", new { id = c.Id }, null));
+}).Sortable(true).WithPaging(50)
 
 
-       
+<script>
+    $("#InvoiceDate").datepicker(
+    {
+        format: 'dd/mm/yyyy'
+    });
+
+    $(document).ready(function () {
+
+
+    });
+</script>

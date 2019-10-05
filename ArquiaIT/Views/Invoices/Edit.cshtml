@@ -27,21 +27,26 @@
         {
             @Html.Hidden("isAdmin", false)
         }
+        @*<div id="tabs">
+            <div class="row">
+                <div class="col-md-12">*@
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#tabInvoiceDetails" data-toggle="tab">Factura</a></li>
+                        <li><a href="#tabSpends" data-toggle="tab">Gastos</a></li>
+                    </ul>
+                @*</div>
+            </div>*@
 
-        <div class="row">
-            <div class="col-md-12">
-                <ul >
-                    <li class="active btn btn-default"><a href="#tabInvoiceDetails" data-toggle="tab">Facturas</a></li>
-                    <li class="btn btn-default"><a href="#tabSpends" data-toggle="tab">Gastos</a></li>
-                </ul>
+        <div class="tab-content">
+            <div id="tabInvoiceDetails" class="tab-pane active">
+                &nbsp;
+                @Html.Partial("~/Views/Invoices/InvoiceDetailEdit.cshtml", Model)
+            </div>
+
+            <div id="tabSpends" class="tab-pane fade">
+                @Html.Partial("~/Views/Spends/InvoiceSpend.cshtml", Model.Spend, new ViewDataDictionary { { "InvoiceID", Model.Id } })
             </div>
         </div>
-
-        <hr>
-
-        @Html.Partial("~/Views/Invoices/InvoiceDetailEdit.cshtml", Model)
-
-        @*@Html.Partial("~/Views/Spends/Index.cshtml", Model.Spend)*@
 
         <div class="row">
             <div class="col-md-12">
@@ -55,14 +60,14 @@
             </div>
             <div class="col-md-10">
                 @if (ViewBag.Source == "PO")
-                {
+            {
                     @Html.ActionLink("Volver", "Edit", "PurchaseOrders", new { id = Model.PurchaseOrderLine.POID }, null)
                 }
                 else
                 {
                     @Html.ActionLink("Volver", "Index")
                 }
-                    
+
             </div>
         </div>
 

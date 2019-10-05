@@ -14,6 +14,7 @@
 @Html.Grid(Model).Columns(columns =>
 {
     columns.Add(c => c.PONumber).Titled("Número").Filterable(true);
+    columns.Add(c => c.Date.Year).Titled("Año").Filterable(true);
     columns.Add(c => c.Date).Titled("Fecha").Filterable(true).Format("{0:dd/MM/yyyy}");
     columns.Add(c => c.IsDolar).Titled("Dolar").Filterable(true);
     columns.Add(c => c.ChangeRate).Titled("Cambio").Filterable(true).Format("{0:c}");
@@ -23,7 +24,7 @@
     columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => Html.ActionLink("Editar", "Edit", new { id = c.Id }));
     columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => Html.ActionLink("Ver", "Details", new { id = c.Id }));
     columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => Html.ActionLink("Eliminar", "Delete", new { id = c.Id }));
-}).WithPaging(20).Sortable(true)
+}).WithPaging(50).Sortable(true)
 
 
 

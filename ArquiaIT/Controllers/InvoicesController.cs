@@ -19,7 +19,8 @@ namespace ArquiaIT.Controllers
         public ActionResult Index()
         {
             var invoices = db.Invoices.Include(i => i.InvoiceCategory).Include(i => i.PurchaseOrderLine).Include(i => i.InvoiceStatus);
-            return View(invoices.ToList());
+            var lista = invoices.OrderByDescending(x => x.InvoiceNumber).ToList();
+            return View(lista);
         }
 
         // GET: Invoices/Details/5
@@ -41,8 +42,9 @@ namespace ArquiaIT.Controllers
         // GET: Invoices/Create
         public ActionResult Create(int POLineId)
         {
+            var statusId = db.InvoiceStatus1.FirstOrDefault(x => x.Description == "Facturado").Id;
             ViewBag.CategoryID = new SelectList(db.InvoiceCategories, "Id", "Description");
-            ViewBag.StatusID = new SelectList(db.InvoiceStatus1, "Id", "Description");
+            ViewBag.StatusID = new SelectList(db.InvoiceStatus1, "Id", "Description", statusId);
             var inv = new Invoice();
 
             var poLine = db.PurchaseOrderLines.FirstOrDefault(x => x.Id == POLineId);
@@ -51,6 +53,7 @@ namespace ArquiaIT.Controllers
                 inv.ChangeRate = poLine.PurchaseOrder.ChangeRate;
                 inv.ValueInDollars = poLine.ValueInDollars;
                 inv.ValueInPesos = poLine.ValueInPesos.Value;
+                inv.StatusID = statusId;
                 inv.IVA = inv.ValueInPesos * decimal.Parse("0,21");
                 inv.InvoiceTotal = inv.ValueInPesos + inv.IVA;
                 inv.InvoiceDate = DateTime.Now.Date;
@@ -69,6 +72,9 @@ namespace ArquiaIT.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (invoice.PayDate.HasValue)
+                    invoice.StatusID = db.InvoiceStatus1.FirstOrDefault(x => x.Description == "Cobrado").Id;
+
                 db.Invoices.Add(invoice);
 
                 db.SaveChanges();
@@ -92,6 +98,10 @@ namespace ArquiaIT.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Invoice invoice = db.Invoices.Find(id);
+
+            if (invoice.InvoiceStatus.Description == "Cobrado" && !User.IsInRole("Administrator"))
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+
             if (invoice == null)
             {
                 return HttpNotFound();
@@ -114,6 +124,12 @@ namespace ArquiaIT.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(invoice).State = EntityState.Modified;
+
+                if (invoice.PayDate.HasValue)
+                    invoice.StatusID = db.InvoiceStatus1.FirstOrDefault(x => x.Description == "Cobrado").Id;
+                else if (invoice.StatusID == db.InvoiceStatus1.FirstOrDefault(x => x.Description == "Cobrado").Id)
+                    invoice.StatusID = db.InvoiceStatus1.FirstOrDefault(x => x.Description == "Facturado").Id;
+
                 db.SaveChanges();
 
                 if (invoice.ChangeRate.HasValue)
@@ -149,6 +165,10 @@ namespace ArquiaIT.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Invoice invoice = db.Invoices.Find(id);
+
+            if (invoice.InvoiceStatus.Description == "Cobrado")
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+
             db.Invoices.Remove(invoice);
             db.SaveChanges();
             return RedirectToAction("Index");

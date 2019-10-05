@@ -43,6 +43,20 @@ namespace ArquiaIT.Controllers
             return View(spend);
         }
 
+        public ActionResult DetailsFromInvoice(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Spend spend = db.Spend.Find(id);
+            if (spend == null)
+            {
+                return HttpNotFound();
+            }
+            return View(spend);
+        }
+
         // GET: Spends/Create
         public ActionResult Spends(string value, string otherCharges)
         {
@@ -63,16 +77,21 @@ namespace ArquiaIT.Controllers
 
             return PartialView(spend);
         }
-
+        
         // GET: Spends/Create
-        public ActionResult Create()
+        public ActionResult Create(int? invoiceID)
         {
-            //ViewBag.InvoiceID = new SelectList(db.Invoices, "Id", "InvoiceNumber");
+            
             var spend = new Spend();
 
             spend.InvoiceDate = DateTime.Now.Date;
-            spend.InvoiceID = null;
-            
+
+            if (invoiceID.HasValue)
+            {
+                ViewBag.InvoiceID = invoiceID.Value;
+                spend.InvoiceID = invoiceID.Value;
+            }
+
             return View(spend);
         }
 
@@ -87,7 +106,11 @@ namespace ArquiaIT.Controllers
             {
                 db.Spend.Add(spend);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                if (spend.InvoiceID.HasValue)
+                    return RedirectToAction("Edit", "Invoices", new { Id = spend.InvoiceID.Value });
+                else
+                    return RedirectToAction("Index");
             }
 
             ViewBag.InvoiceID = new SelectList(db.Invoices, "Id", "InvoiceNumber", spend.InvoiceID);
@@ -106,7 +129,22 @@ namespace ArquiaIT.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.InvoiceID = new SelectList(db.Invoices, "Id", "InvoiceNumber", spend.InvoiceID);
+
+            return View(spend);
+        }
+
+        public ActionResult EditFromInvoice(int? id, string src)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Spend spend = db.Spend.Find(id);
+            if (spend == null)
+            {
+                return HttpNotFound();
+            }
+
             return View(spend);
         }
 
@@ -123,12 +161,41 @@ namespace ArquiaIT.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.InvoiceID = new SelectList(db.Invoices, "Id", "InvoiceNumber", spend.InvoiceID);
+            //ViewBag.InvoiceID = new SelectList(db.Invoices, "Id", "InvoiceNumber", spend.InvoiceID);
+            return View(spend);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditFromInvoice([Bind(Include = "Id,InvoiceID,Vendor,Description,InvoiceNumber,InvoiceDate,POValueInDollars,InvoiveValueInDollars,InvoiceValue,IVA,IIBB_ARBA,ARCIBA,InvoiceTotal,PayDate,OtherTaxes")] Spend spend)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(spend).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Edit", "Invoices", new { Id = spend.InvoiceID.Value });
+
+            }
+            //ViewBag.InvoiceID = new SelectList(db.Invoices, "Id", "InvoiceNumber", spend.InvoiceID);
             return View(spend);
         }
 
         // GET: Spends/Delete/5
         public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Spend spend = db.Spend.Find(id);
+            if (spend == null)
+            {
+                return HttpNotFound();
+            }
+            return View(spend);
+        }
+
+        public ActionResult DeleteFromInvoice(int? id)
         {
             if (id == null)
             {
@@ -151,6 +218,17 @@ namespace ArquiaIT.Controllers
             db.Spend.Remove(spend);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        [HttpPost, ActionName("DeleteFromInvoice")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteFromInvoiceConfirmed(int id)
+        {
+            Spend spend = db.Spend.Find(id);
+            int InvID = spend.InvoiceID.Value;
+            db.Spend.Remove(spend);
+            db.SaveChanges();
+            return RedirectToAction("Edit", "Invoices", new { Id = InvID });
         }
 
         protected override void Dispose(bool disposing)

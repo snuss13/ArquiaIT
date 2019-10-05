@@ -1,0 +1,161 @@
+﻿@model ArquiaIT.Models.Business.Spend
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Gastos</h2>
+
+<div class="form-horizontal">
+    <h4>Eliminar</h4>
+    <hr />
+    <p>
+        <div class="Warning">
+            ¿Est&aacute; seguro que desea eliminar este gasto?
+        </div>
+    </p>
+
+    <div class="row">
+        <div class="col-md-2">
+            @Html.Label("Cliente", htmlAttributes: new { @class = "control-label" })
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.Vendor, new { htmlAttributes = new { @class = "form-control", disabled = "true" } })
+        </div>
+        <div class="col-md-2">
+            @Html.Label("Numero Fact", htmlAttributes: new { @class = "control-label" })
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.InvoiceNumber, new { htmlAttributes = new { @class = "form-control", disabled = "true" } })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            &nbsp;
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            @Html.Label("Descripcion", htmlAttributes: new { @class = "control-label" })
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", disabled = "true" } })
+        </div>
+        <div class="col-md-2">
+            @Html.Label("Fecha Fact", htmlAttributes: new { @class = "control-label" })
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.InvoiceDate, new { htmlAttributes = new { @class = "form-control", disabled = "true" } })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            &nbsp;
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            @Html.Label("Fecha Pago", htmlAttributes: new { @class = "control-label" })
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.PayDate, new { htmlAttributes = new { @class = "form-control", disabled = "true" } })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            &nbsp;
+        </div>
+    </div>
+
+
+    <hr />
+    <div class="row">
+        <div class="col-md-2">
+            @Html.Label("Valor", htmlAttributes: new { @class = "control-label" })
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.InvoiceValue, new { htmlAttributes = new { @class = "form-control", disabled = "true" } })
+            @Html.ValidationMessageFor(model => model.InvoiceValue, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="col-md-2">
+            @Html.LabelFor(model => model.IVA, htmlAttributes: new { @class = "control-label" })
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.IVA, new { htmlAttributes = new { @class = "form-control", disabled = "true" } })
+            @Html.ValidationMessageFor(model => model.IVA, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            &nbsp;
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            @Html.LabelFor(model => model.IIBB_ARBA, htmlAttributes: new { @class = "control-label" })
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.IIBB_ARBA, new { htmlAttributes = new { @class = "form-control", disabled = "true" } })
+            @Html.ValidationMessageFor(model => model.IIBB_ARBA, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-md-2">
+            @Html.LabelFor(model => model.ARCIBA, htmlAttributes: new { @class = "control-label" })
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.ARCIBA, new { htmlAttributes = new { @class = "form-control", disabled = "true" } })
+            @Html.ValidationMessageFor(model => model.ARCIBA, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            &nbsp;
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            @Html.Label("Otros", htmlAttributes: new { @class = "control-label" })
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.OtherTaxes, new { htmlAttributes = new { @class = "form-control", disabled = "true" } })
+            @Html.ValidationMessageFor(model => model.OtherTaxes, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-md-2">
+            @Html.Label("Total Fact", htmlAttributes: new { @class = "control-label" })
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.InvoiceTotal, new { htmlAttributes = new { @class = "form-control", disabled = "true" } })
+            @Html.ValidationMessageFor(model => model.InvoiceTotal, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            &nbsp;
+        </div>
+    </div>
+
+    <hr />
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn btn-default" /> |
+            @Html.ActionLink("Volver", "Edit", "Invoices", new { id = Model.InvoiceID }, null)
+        </div>
+    }
+
+</div>
+
+
