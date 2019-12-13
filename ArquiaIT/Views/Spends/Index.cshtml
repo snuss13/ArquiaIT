@@ -14,15 +14,13 @@
 @Html.Grid(Model).Columns(columns =>
 {
     columns.Add(c => c.Vendor).Titled("Cliente").Filterable(true);
-    columns.Add(c => c.InvoiceNumber).Titled("Número Fact").Filterable(true);
-    columns.Add(c => c.Description).Titled("Descripción").Filterable(true);
+    columns.Add(c => c.Description).Titled("Categoría").Filterable(true);
     columns.Add(c => c.SpendMonth).Titled("Mes").Filterable(true);
     columns.Add(c => c.InvoiceDate.Year).Titled("Año").Filterable(true);
-    columns.Add(c => c.InvoiceDate).Titled("Fecha").Filterable(true).Format("{0:dd/MM/yyyy}");
     columns.Add(c => c.InvoiceValue).Titled("Valor Sin IVA").Filterable(true).Format("{0:c}");
     columns.Add(c => c.IVA).Titled("IVA").Filterable(true).Format("{0:c}");
-    columns.Add(c => c.IIBB_ARBA).Titled("IIBB 5% ARBA").Filterable(true).Format("{0:c}");
-    columns.Add(c => c.ARCIBA).Titled("IIBB 3,5% ARCIBA").Filterable(true).Format("{0:c}");
+    columns.Add(c => c.IIBB_ARBA).Titled("IIBB ARBA").Filterable(true).Format("{0:c}");
+    columns.Add(c => c.ARCIBA).Titled("IIBB ARCIBA").Filterable(true).Format("{0:c}");
     columns.Add(c => c.OtherTaxes).Titled("Otros").Filterable(true).Format("{0:c}");
     columns.Add(c => c.InvoiceTotal).Titled("Total").Filterable(true).Format("{0:c}");
     columns.Add(c => c.PayDate).Titled("FechaPago").Filterable(true).Format("{0:dd/MM/yyyy}");

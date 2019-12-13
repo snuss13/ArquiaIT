@@ -56,6 +56,7 @@ namespace ArquiaIT.Controllers
             return View(ret);
         }
 
+        
         // POST: Retentions/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -67,9 +68,28 @@ namespace ArquiaIT.Controllers
             {
                 db.Retention.Add(retention);
                 db.SaveChanges();
-                return RedirectToAction("Index", "Invoices");
+                return RedirectToAction("Edit", "Invoices", new { Id = retention.InvoiceID });
             }
 
+            ViewBag.InvoiceID = new SelectList(db.Invoices, "Id", "InvoiceNumber", retention.InvoiceID);
+            return View(retention);
+        }
+
+        
+        // GET: Retentions/Edit/5
+        public ActionResult InvoiceRetention(int? InvoiceID)
+        {
+            Retention retention = new Retention();
+
+            if (InvoiceID != null)
+            {
+                retention = db.Invoices.Find(InvoiceID).Retention.FirstOrDefault();
+                if (retention == null)
+                {
+                    return HttpNotFound();
+                }
+            }
+            
             ViewBag.InvoiceID = new SelectList(db.Invoices, "Id", "InvoiceNumber", retention.InvoiceID);
             return View(retention);
         }
@@ -101,7 +121,7 @@ namespace ArquiaIT.Controllers
             {
                 db.Entry(retention).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Edit", "Invoices", new { Id = retention.InvoiceID });
             }
             ViewBag.InvoiceID = new SelectList(db.Invoices, "Id", "InvoiceNumber", retention.InvoiceID);
             return View(retention);
@@ -132,7 +152,7 @@ namespace ArquiaIT.Controllers
             Retention retention = db.Retention.Find(id);
             db.Retention.Remove(retention);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Edit", "Invoices", new { Id = retention.InvoiceID });
         }
 
         protected override void Dispose(bool disposing)

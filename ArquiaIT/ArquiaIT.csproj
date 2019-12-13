@@ -182,9 +182,11 @@
     <Compile Include="App_Start\MVCGridConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="BusinessRules\InvoiceBR.cs" />
     <Compile Include="BusinessRules\SystemConfiguration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ClientsController.cs" />
+    <Compile Include="Controllers\ContactsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InvoiceCategoriesController.cs" />
     <Compile Include="Controllers\InvoicesController.cs" />
@@ -194,18 +196,26 @@
     <Compile Include="Controllers\PurchaseOrdersController.cs" />
     <Compile Include="Controllers\RetentionsController.cs" />
     <Compile Include="Controllers\SpendsController.cs" />
-    <Compile Include="Controllers\TelephonesController.cs" />
-    <Compile Include="Controllers\TelephoneTypesController.cs" />
+    <Compile Include="Controllers\SpendTypesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Business\Contact.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Business\DebitNote.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Business\InvoiceStatus.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Business\partialPurchaseOrder.cs" />
     <Compile Include="Models\Business\partialSpends.cs" />
     <Compile Include="Models\Business\Spend.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Business\SpendType.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Business\SystemConfiguration.cs">
@@ -243,12 +253,6 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Business\Retention.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Business\Telephone.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Business\TelephoneType.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
@@ -579,6 +583,13 @@
     <Content Include="Views\PurchaseOrderLines\IndexView.cshtml" />
     <Content Include="Views\Shared\_GridPager.cshtml" />
     <Content Include="Views\Shared\_Grid.cshtml" />
+    <Content Include="Views\Retentions\InvoiceRetention.cshtml" />
+    <Content Include="Views\Contacts\Create.cshtml" />
+    <Content Include="Views\Contacts\Delete.cshtml" />
+    <Content Include="Views\Contacts\Details.cshtml" />
+    <Content Include="Views\Contacts\Edit.cshtml" />
+    <Content Include="Views\Contacts\Index.cshtml" />
+    <Content Include="Views\Contacts\IndexView.cshtml" />
     <None Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
@@ -603,11 +614,6 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\Administration.cshtml" />
-    <Content Include="Views\TelephoneTypes\Create.cshtml" />
-    <Content Include="Views\TelephoneTypes\Delete.cshtml" />
-    <Content Include="Views\TelephoneTypes\Details.cshtml" />
-    <Content Include="Views\TelephoneTypes\Edit.cshtml" />
-    <Content Include="Views\TelephoneTypes\Index.cshtml" />
     <Content Include="Views\Account\UserList.cshtml" />
     <Content Include="Views\Manage\ChangePassword.cshtml" />
     <Content Include="Views\Manage\Delete.cshtml" />
@@ -627,6 +633,11 @@
     <Content Include="Views\Spends\EditFromInvoice.cshtml" />
     <Content Include="Views\Spends\DeleteFromInvoice.cshtml" />
     <Content Include="Views\Spends\DetailsFromInvoice.cshtml" />
+    <Content Include="Views\SpendTypes\Create.cshtml" />
+    <Content Include="Views\SpendTypes\Delete.cshtml" />
+    <Content Include="Views\SpendTypes\Details.cshtml" />
+    <Content Include="Views\SpendTypes\Edit.cshtml" />
+    <Content Include="Views\SpendTypes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -11,6 +11,7 @@
     @Html.AntiForgeryToken()
 
     @Html.HiddenFor(model => model.InvoiceID, "InvoiceID")
+    
     <div class="form-horizontal">
         <h4>Generar</h4>
 
@@ -73,5 +74,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index", "Invoices", new { id = Model.InvoiceID }, null)
+        @Html.ActionLink("Volver", "Edit", "Invoices", new { id = Model.InvoiceID }, null)
 </div>

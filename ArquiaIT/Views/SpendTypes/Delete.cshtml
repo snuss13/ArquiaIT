@@ -1,0 +1,46 @@
+﻿@model ArquiaIT.Models.Business.SpendType
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Tipo de Gasto</h2>
+
+
+<div>
+    <h4>Eliminar</h4>
+    <hr />
+    <p>
+        <div class="Warning">
+            ¿Est&aacute; seguro que desea eliminar este tipo de gasto?
+        </div>
+    </p>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.Label("Descripción")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.Label("Activo")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.active)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn btn-default" /> |
+            @Html.ActionLink("Volver", "Index")
+        </div>
+    }
+</div>

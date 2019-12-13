@@ -18,6 +18,7 @@ namespace ArquiaIT.Models.Business
         public InvoiceStatus()
         {
             this.Invoices = new HashSet<Invoice>();
+            this.DebitNote = new HashSet<DebitNote>();
         }
     
         public int Id { get; set; }
@@ -26,5 +27,7 @@ namespace ArquiaIT.Models.Business
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Invoice> Invoices { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DebitNote> DebitNote { get; set; }
     }
 }

@@ -1,0 +1,30 @@
+﻿@model IEnumerable<ArquiaIT.Models.Business.SpendType>
+@using GridMvc.Html
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Tipo de gasto</h2>
+
+<p>
+    @Html.ActionLink("Nuevo", "Create")
+</p>
+<hr />
+<div style="width:1000px;">
+    @Html.Grid(Model).Columns(columns =>
+    {
+        columns.Add(c => c.Id).Titled("ID");
+        columns.Add(c => c.Description).Titled("Tipo de Gasto").Filterable(true);
+        columns.Add(c => c.active).Titled("Activo").Filterable(true);
+        columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => Html.ActionLink("Editar", "Edit", new { id = c.Id }));
+        columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => Html.ActionLink("Ver", "Details", new { id = c.Id }));
+        columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => Html.ActionLink("Eliminar", "Delete", new { id = c.Id }));
+    }).WithPaging(50).Sortable(true)
+</div>
+<hr />
+<p>
+    <div>
+        @Html.ActionLink("Volver", "Administration", "Home")
+    </div>
+</p>

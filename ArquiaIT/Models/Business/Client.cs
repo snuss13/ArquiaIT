@@ -18,7 +18,7 @@ namespace ArquiaIT.Models.Business
         public Client()
         {
             this.PurchaseOrder = new HashSet<PurchaseOrder>();
-            this.Telephone = new HashSet<Telephone>();
+            this.Contact = new HashSet<Contact>();
         }
     
         public int Id { get; set; }
@@ -30,6 +30,6 @@ namespace ArquiaIT.Models.Business
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PurchaseOrder> PurchaseOrder { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Telephone> Telephone { get; set; }
+        public virtual ICollection<Contact> Contact { get; set; }
     }
 }

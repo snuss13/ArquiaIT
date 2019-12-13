@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using ArquiaIT.Models.Business;
 using ArquiaIT.BusinessRules;
+using System.IO;
 
 namespace ArquiaIT.Controllers
 {
@@ -125,10 +126,13 @@ namespace ArquiaIT.Controllers
             {
                 db.Entry(invoice).State = EntityState.Modified;
 
-                if (invoice.PayDate.HasValue)
-                    invoice.StatusID = db.InvoiceStatus1.FirstOrDefault(x => x.Description == "Cobrado").Id;
-                else if (invoice.StatusID == db.InvoiceStatus1.FirstOrDefault(x => x.Description == "Cobrado").Id)
-                    invoice.StatusID = db.InvoiceStatus1.FirstOrDefault(x => x.Description == "Facturado").Id;
+                if (invoice.StatusID != db.InvoiceStatus1.FirstOrDefault(x => x.Description == "Anulado").Id)
+                {
+                    if (invoice.PayDate.HasValue)
+                        invoice.StatusID = db.InvoiceStatus1.FirstOrDefault(x => x.Description == "Cobrado").Id;
+                    else if (invoice.StatusID == db.InvoiceStatus1.FirstOrDefault(x => x.Description == "Cobrado").Id)
+                        invoice.StatusID = db.InvoiceStatus1.FirstOrDefault(x => x.Description == "Facturado").Id;
+                }
 
                 db.SaveChanges();
 
@@ -172,6 +176,25 @@ namespace ArquiaIT.Controllers
             db.Invoices.Remove(invoice);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult UploadFile(HttpPostedFileBase FileUpload)
+        {
+            if (FileUpload.ContentLength > 0)
+            {
+                StreamReader sourceStream = new StreamReader(FileUpload.InputStream);
+                InvoiceBR invBR = new InvoiceBR();
+
+                var success = invBR.insertCSVInvoices(sourceStream);
+
+                if (success)
+                    return View("UploadSuccess");
+                else
+                    return View("UploadFail");
+            }
+
+            return RedirectToAction("Index", new { error = "Please upload a file..." });
         }
 
         protected override void Dispose(bool disposing)

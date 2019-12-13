@@ -20,7 +20,10 @@ namespace ArquiaIT.Controllers
         public ActionResult Index()
         {
             var purchaseOrders = db.PurchaseOrders.Include(p => p.Client);
-            return View(purchaseOrders.OrderByDescending(x => x.PONumber).ToList());
+
+            var test3 = db.PurchaseOrders.Where(x => x.PurchaseOrderLines.Where(y => y.Invoices.Count() == 0 || y.Invoices.Where(z => z.InvoiceStatus.Description != "Cobrado" && z.InvoiceStatus.Description != "Anulado").Count() > 0).Count() > 0);
+
+            return View(test3.OrderByDescending(x => x.PONumber).ToList());
         }
 
         // GET: PurchaseOrders/Details/5

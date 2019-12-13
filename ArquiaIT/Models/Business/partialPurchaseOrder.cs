@@ -28,5 +28,13 @@ namespace ArquiaIT.Models.Business
                 return this.PurchaseOrderLines.Where(x => x.Value.HasValue).Sum(x => x.Value.Value);
             }
         }
+
+        public string Month
+        {
+            get
+            {
+                return this.Date.ToString("MMM");
+            }
+        }
     }
 }

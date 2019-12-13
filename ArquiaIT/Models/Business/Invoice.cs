@@ -19,6 +19,7 @@ namespace ArquiaIT.Models.Business
         {
             this.Spend = new HashSet<Spend>();
             this.Retention = new HashSet<Retention>();
+            this.DebitNote = new HashSet<DebitNote>();
         }
     
         public int Id { get; set; }
@@ -41,5 +42,7 @@ namespace ArquiaIT.Models.Business
         public virtual ICollection<Spend> Spend { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Retention> Retention { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DebitNote> DebitNote { get; set; }
     }
 }

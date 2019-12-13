@@ -1,0 +1,33 @@
+﻿@model IEnumerable<ArquiaIT.Models.Business.Contact>
+@using GridMvc.Html
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h4>Contactos</h4>
+
+<p>
+    @Html.ActionLink("Agregar Contacto", "Create", "Contacts", new { clientID = ViewData["clientID"] }, null)
+</p>
+
+<hr />
+<div style="width:1000px;">
+    @Html.Grid(Model).Columns(columns =>
+{
+    columns.Add(c => c.Name).Titled("Nombre").Filterable(true);
+    columns.Add(c => c.LastName).Titled("Apellido").Filterable(true);
+    columns.Add(c => c.Area).Titled("Area").Filterable(true);
+    columns.Add(c => c.TelephoneNumber).Titled("Núm. Teléfono");
+    columns.Add(c => c.InternNumber).Titled("Interno");
+    columns.Add(c => c.email).Titled("Email");
+    columns.Add(c => c.Active).Titled("Activo").Filterable(true);
+    columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => Html.ActionLink("Editar", "Edit", "Contacts", new { id = c.Id }, null));
+    columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => Html.ActionLink("Ver", "Details", "Contacts", new { id = c.Id }, null));
+    columns.Add().Encoded(false).Sanitized(false).SetWidth(30).RenderValueAs(c => Html.ActionLink("Eliminar", "Delete", "Contacts", new { id = c.Id }, null));
+}).WithPaging(50).Sortable(true)
+</div>
+
+<hr />
+
+

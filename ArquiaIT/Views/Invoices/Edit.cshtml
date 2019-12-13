@@ -27,16 +27,15 @@
         {
             @Html.Hidden("isAdmin", false)
         }
-        @*<div id="tabs">
-            <div class="row">
-                <div class="col-md-12">*@
-                    <ul class="nav nav-tabs">
-                        <li class="active"><a href="#tabInvoiceDetails" data-toggle="tab">Factura</a></li>
-                        <li><a href="#tabSpends" data-toggle="tab">Gastos</a></li>
-                    </ul>
-                @*</div>
-            </div>*@
 
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#tabInvoiceDetails" data-toggle="tab">Factura</a></li>
+            <li><a href="#tabSpends" data-toggle="tab">Gastos</a></li>
+            @if (Model.Retention.Count > 0)
+            {
+                <li><a href="#tabRetentions" data-toggle="tab">Retenciones</a></li>
+            }
+        </ul>
         <div class="tab-content">
             <div id="tabInvoiceDetails" class="tab-pane active">
                 &nbsp;
@@ -45,6 +44,13 @@
 
             <div id="tabSpends" class="tab-pane fade">
                 @Html.Partial("~/Views/Spends/InvoiceSpend.cshtml", Model.Spend, new ViewDataDictionary { { "InvoiceID", Model.Id } })
+            </div>
+
+            <div id="tabRetentions" class="tab-pane fade">
+                @if (Model.Retention.Count > 0)
+                {
+                    @Html.Partial("~/Views/Retentions/InvoiceRetention.cshtml", Model.Retention.FirstOrDefault(), new ViewDataDictionary { { "InvoiceID", Model.Id } })
+                }
             </div>
         </div>
 
@@ -56,11 +62,16 @@
 
         <div class="row">
             <div class="col-md-1">
-                <input type="submit" value="Actualizar" class="btn btn-default" />
+                <input type="submit" value="Actualizar" class="btn btn-default" /> 
             </div>
-            <div class="col-md-10">
+            <div class="col-md-9">
+                @if (Model.Retention.Count == 0)
+                {
+                     @Html.ActionLink("| Generar Retención", "Create", "Retentions", new { invoiceId = Model.Id }, null) 
+                }
+                |
                 @if (ViewBag.Source == "PO")
-            {
+                {
                     @Html.ActionLink("Volver", "Edit", "PurchaseOrders", new { id = Model.PurchaseOrderLine.POID }, null)
                 }
                 else

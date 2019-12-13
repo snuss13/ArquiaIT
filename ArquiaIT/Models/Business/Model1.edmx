@@ -15,6 +15,37 @@
           <Property Name="Address" Type="nvarchar" MaxLength="500" />
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="Contact">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Area" Type="varchar" MaxLength="200" />
+          <Property Name="TelephoneNumber" Type="varchar" MaxLength="50" />
+          <Property Name="InternNumber" Type="varchar" MaxLength="50" />
+          <Property Name="email" Type="varchar" MaxLength="200" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DebitNote">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryID" Type="int" Nullable="false" />
+          <Property Name="InvoiceID" Type="int" Nullable="false" />
+          <Property Name="StatusID" Type="int" Nullable="false" />
+          <Property Name="NoteDate" Type="date" Nullable="false" />
+          <Property Name="NoteNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ValueInPesos" Type="money" Nullable="false" />
+          <Property Name="ValueInDollars" Type="money" />
+          <Property Name="IVA" Type="money" Nullable="false" />
+          <Property Name="ChangeRate" Type="money" />
+          <Property Name="InvoiceTotal" Type="money" />
+          <Property Name="PayDate" Type="date" />
+        </EntityType>
         <EntityType Name="Invoice">
           <Key>
             <PropertyRef Name="Id" />
@@ -93,6 +124,7 @@
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="InvoiceNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="InvoiceDate" Type="date" Nullable="false" />
+          <Property Name="SpendTypeID" Type="int" Nullable="false" />
           <Property Name="POValueInDollars" Type="money" />
           <Property Name="InvoiveValueInDollars" Type="money" />
           <Property Name="InvoiceValue" Type="money" Nullable="false" />
@@ -103,6 +135,14 @@
           <Property Name="PayDate" Type="date" />
           <Property Name="OtherTaxes" Type="money" />
         </EntityType>
+        <EntityType Name="SpendType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="200" />
+          <Property Name="active" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="SystemConfiguration">
           <Key>
             <PropertyRef Name="Id" />
@@ -110,23 +150,54 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="LastChangeRate" Type="money" Nullable="false" />
         </EntityType>
-        <EntityType Name="Telephone">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ClientID" Type="int" Nullable="false" />
-          <Property Name="Number" Type="varchar" MaxLength="50" />
-          <Property Name="TypeID" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="TelephoneType">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Description" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="Active" Type="bit" Nullable="false" />
-        </EntityType>
+        <Association Name="FK_Contact_ToClient">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Contact" Type="Self.Contact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Contact">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DebitNote_ToCategory">
+          <End Role="InvoiceCategory" Type="Self.InvoiceCategory" Multiplicity="1" />
+          <End Role="DebitNote" Type="Self.DebitNote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InvoiceCategory">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DebitNote">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DebitNote_ToInvoiceLine">
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
+          <End Role="DebitNote" Type="Self.DebitNote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invoice">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DebitNote">
+              <PropertyRef Name="InvoiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DebitNote_ToStatus">
+          <End Role="InvoiceStatus" Type="Self.InvoiceStatus" Multiplicity="1" />
+          <End Role="DebitNote" Type="Self.DebitNote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InvoiceStatus">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DebitNote">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Invoice_ToCategory">
           <End Role="InvoiceCategory" Type="Self.InvoiceCategory" Multiplicity="1" />
           <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
@@ -175,6 +246,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ISpends_ToSpendType">
+          <End Role="SpendType" Type="Self.SpendType" Multiplicity="1" />
+          <End Role="Spend" Type="Self.Spend" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SpendType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Spend">
+              <PropertyRef Name="SpendTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PO_ToClient">
           <End Role="Client" Type="Self.Client" Multiplicity="1" />
           <End Role="PurchaseOrder" Type="Self.PurchaseOrder" Multiplicity="*" />
@@ -211,32 +294,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Telephone_ToClient">
-          <End Role="Client" Type="Self.Client" Multiplicity="1" />
-          <End Role="Telephone" Type="Self.Telephone" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Client">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Telephone">
-              <PropertyRef Name="ClientID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Telephone_ToTelType">
-          <End Role="TelephoneType" Type="Self.TelephoneType" Multiplicity="1" />
-          <End Role="Telephone" Type="Self.Telephone" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TelephoneType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Telephone">
-              <PropertyRef Name="TypeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="ArquiaModelStoreContainer">
           <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Contact" EntityType="Self.Contact" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DebitNote" EntityType="Self.DebitNote" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InvoiceCategory" EntityType="Self.InvoiceCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InvoiceStatus" EntityType="Self.InvoiceStatus" Schema="dbo" store:Type="Tables" />
@@ -244,9 +305,24 @@
           <EntitySet Name="PurchaseOrderLine" EntityType="Self.PurchaseOrderLine" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Retention" EntityType="Self.Retention" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Spend" EntityType="Self.Spend" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SpendType" EntityType="Self.SpendType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SystemConfiguration" EntityType="Self.SystemConfiguration" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Telephone" EntityType="Self.Telephone" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TelephoneType" EntityType="Self.TelephoneType" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Contact_ToClient" Association="Self.FK_Contact_ToClient">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Contact" EntitySet="Contact" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DebitNote_ToCategory" Association="Self.FK_DebitNote_ToCategory">
+            <End Role="InvoiceCategory" EntitySet="InvoiceCategory" />
+            <End Role="DebitNote" EntitySet="DebitNote" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DebitNote_ToInvoiceLine" Association="Self.FK_DebitNote_ToInvoiceLine">
+            <End Role="Invoice" EntitySet="Invoice" />
+            <End Role="DebitNote" EntitySet="DebitNote" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DebitNote_ToStatus" Association="Self.FK_DebitNote_ToStatus">
+            <End Role="InvoiceStatus" EntitySet="InvoiceStatus" />
+            <End Role="DebitNote" EntitySet="DebitNote" />
+          </AssociationSet>
           <AssociationSet Name="FK_Invoice_ToCategory" Association="Self.FK_Invoice_ToCategory">
             <End Role="InvoiceCategory" EntitySet="InvoiceCategory" />
             <End Role="Invoice" EntitySet="Invoice" />
@@ -263,6 +339,10 @@
             <End Role="Invoice" EntitySet="Invoice" />
             <End Role="Spend" EntitySet="Spend" />
           </AssociationSet>
+          <AssociationSet Name="FK_ISpends_ToSpendType" Association="Self.FK_ISpends_ToSpendType">
+            <End Role="SpendType" EntitySet="SpendType" />
+            <End Role="Spend" EntitySet="Spend" />
+          </AssociationSet>
           <AssociationSet Name="FK_PO_ToClient" Association="Self.FK_PO_ToClient">
             <End Role="Client" EntitySet="Client" />
             <End Role="PurchaseOrder" EntitySet="PurchaseOrder" />
@@ -274,14 +354,6 @@
           <AssociationSet Name="FK_Retention_ToInvoice" Association="Self.FK_Retention_ToInvoice">
             <End Role="Invoice" EntitySet="Invoice" />
             <End Role="Retention" EntitySet="Retention" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Telephone_ToClient" Association="Self.FK_Telephone_ToClient">
-            <End Role="Client" EntitySet="Client" />
-            <End Role="Telephone" EntitySet="Telephone" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Telephone_ToTelType" Association="Self.FK_Telephone_ToTelType">
-            <End Role="TelephoneType" EntitySet="TelephoneType" />
-            <End Role="Telephone" EntitySet="Telephone" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -309,6 +381,7 @@
           <NavigationProperty Name="InvoiceStatus" Relationship="Self.FK_Invoice_ToStatus" FromRole="Invoice" ToRole="InvoiceStatus" />
           <NavigationProperty Name="Spend" Relationship="ArquiaModel.FK_ISpends_ToInvoice" FromRole="Invoice" ToRole="Spend" />
           <NavigationProperty Name="Retention" Relationship="ArquiaModel.FK_Retention_ToInvoice" FromRole="Invoice" ToRole="Retention" />
+          <NavigationProperty Name="DebitNote" Relationship="ArquiaModel.FK_DebitNote_ToInvoiceLine" FromRole="Invoice" ToRole="DebitNote" />
         </EntityType>
         <EntityType Name="InvoiceCategory">
           <Key>
@@ -318,6 +391,7 @@
           <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Invoices" Relationship="Self.FK_Invoice_ToCategory" FromRole="InvoiceCategory" ToRole="Invoice" />
+          <NavigationProperty Name="DebitNote" Relationship="ArquiaModel.FK_DebitNote_ToCategory" FromRole="InvoiceCategory" ToRole="DebitNote" />
         </EntityType>
         <EntityType Name="InvoiceStatus">
           <Key>
@@ -327,6 +401,7 @@
           <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Invoices" Relationship="Self.FK_Invoice_ToStatus" FromRole="InvoiceStatus" ToRole="Invoice" />
+          <NavigationProperty Name="DebitNote" Relationship="ArquiaModel.FK_DebitNote_ToStatus" FromRole="InvoiceStatus" ToRole="DebitNote" />
         </EntityType>
         <EntityType Name="PurchaseOrder">
           <Key>
@@ -353,26 +428,6 @@
           <NavigationProperty Name="Invoices" Relationship="Self.FK_Invoice_ToPOLine" FromRole="PurchaseOrderLine" ToRole="Invoice" />
           <NavigationProperty Name="PurchaseOrder" Relationship="Self.FK_PO_ToPOLine" FromRole="PurchaseOrderLine" ToRole="PurchaseOrder" />
           <Property Name="ValueInPesos" Type="Decimal" Precision="19" Scale="4" />
-        </EntityType>
-        <EntityType Name="Telephone">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ClientID" Type="Int32" Nullable="false" />
-          <Property Name="Number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="TypeID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="TelephoneType" Relationship="Self.FK_Telephone_ToTelType" FromRole="Telephone" ToRole="TelephoneType" />
-          <NavigationProperty Name="Client" Relationship="ArquiaModel.FK_Telephone_ToClient" FromRole="Telephone" ToRole="Client" />
-        </EntityType>
-        <EntityType Name="TelephoneType">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Active" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Telephones" Relationship="Self.FK_Telephone_ToTelType" FromRole="TelephoneType" ToRole="Telephone" />
         </EntityType>
         <Association Name="FK_Invoice_ToCategory">
           <End Role="InvoiceCategory" Type="Self.InvoiceCategory" Multiplicity="1" />
@@ -422,26 +477,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Telephone_ToTelType">
-          <End Role="TelephoneType" Type="Self.TelephoneType" Multiplicity="1" />
-          <End Role="Telephone" Type="Self.Telephone" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TelephoneType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Telephone">
-              <PropertyRef Name="TypeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="ArquiaEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Invoices" EntityType="Self.Invoice" />
           <EntitySet Name="InvoiceCategories" EntityType="Self.InvoiceCategory" />
           <EntitySet Name="InvoiceStatus1" EntityType="ArquiaModel.InvoiceStatus" />
           <EntitySet Name="PurchaseOrders" EntityType="Self.PurchaseOrder" />
           <EntitySet Name="PurchaseOrderLines" EntityType="Self.PurchaseOrderLine" />
-          <EntitySet Name="Telephones" EntityType="Self.Telephone" />
-          <EntitySet Name="TelephoneTypes" EntityType="Self.TelephoneType" />
           <AssociationSet Name="FK_Invoice_ToCategory" Association="Self.FK_Invoice_ToCategory">
             <End Role="InvoiceCategory" EntitySet="InvoiceCategories" />
             <End Role="Invoice" EntitySet="Invoices" />
@@ -458,18 +499,10 @@
             <End Role="PurchaseOrder" EntitySet="PurchaseOrders" />
             <End Role="PurchaseOrderLine" EntitySet="PurchaseOrderLines" />
           </AssociationSet>
-          <AssociationSet Name="FK_Telephone_ToTelType" Association="Self.FK_Telephone_ToTelType">
-            <End Role="TelephoneType" EntitySet="TelephoneTypes" />
-            <End Role="Telephone" EntitySet="Telephones" />
-          </AssociationSet>
           <EntitySet Name="Client" EntityType="ArquiaModel.Client" />
           <AssociationSet Name="FK_PO_ToClient" Association="ArquiaModel.FK_PO_ToClient">
             <End Role="Client" EntitySet="Client" />
             <End Role="PurchaseOrder" EntitySet="PurchaseOrders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Telephone_ToClient" Association="ArquiaModel.FK_Telephone_ToClient">
-            <End Role="Client" EntitySet="Client" />
-            <End Role="Telephone" EntitySet="Telephones" />
           </AssociationSet>
           <EntitySet Name="Retention" EntityType="ArquiaModel.Retention" />
           <EntitySet Name="Spend" EntityType="ArquiaModel.Spend" />
@@ -482,6 +515,29 @@
             <End Role="Retention" EntitySet="Retention" />
           </AssociationSet>
           <EntitySet Name="SystemConfiguration" EntityType="ArquiaModel.SystemConfiguration" />
+          <EntitySet Name="DebitNote" EntityType="ArquiaModel.DebitNote" />
+          <AssociationSet Name="FK_DebitNote_ToCategory" Association="ArquiaModel.FK_DebitNote_ToCategory">
+            <End Role="InvoiceCategory" EntitySet="InvoiceCategories" />
+            <End Role="DebitNote" EntitySet="DebitNote" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DebitNote_ToInvoiceLine" Association="ArquiaModel.FK_DebitNote_ToInvoiceLine">
+            <End Role="Invoice" EntitySet="Invoices" />
+            <End Role="DebitNote" EntitySet="DebitNote" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DebitNote_ToStatus" Association="ArquiaModel.FK_DebitNote_ToStatus">
+            <End Role="InvoiceStatus" EntitySet="InvoiceStatus1" />
+            <End Role="DebitNote" EntitySet="DebitNote" />
+          </AssociationSet>
+          <EntitySet Name="Contact" EntityType="ArquiaModel.Contact" />
+          <AssociationSet Name="FK_Contact_ToClient" Association="ArquiaModel.FK_Contact_ToClient">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Contact" EntitySet="Contact" />
+          </AssociationSet>
+          <EntitySet Name="SpendType" EntityType="ArquiaModel.SpendType" />
+          <AssociationSet Name="FK_ISpends_ToSpendType" Association="ArquiaModel.FK_ISpends_ToSpendType">
+            <End Role="SpendType" EntitySet="SpendType" />
+            <End Role="Spend" EntitySet="Spend" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Client">
           <Key>
@@ -493,7 +549,7 @@
           <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="PurchaseOrder" Relationship="ArquiaModel.FK_PO_ToClient" FromRole="Client" ToRole="PurchaseOrder" />
-          <NavigationProperty Name="Telephone" Relationship="ArquiaModel.FK_Telephone_ToClient" FromRole="Client" ToRole="Telephone" />
+          <NavigationProperty Name="Contact" Relationship="ArquiaModel.FK_Contact_ToClient" FromRole="Client" ToRole="Contact" />
         </EntityType>
         <Association Name="FK_PO_ToClient">
           <End Type="ArquiaModel.Client" Role="Client" Multiplicity="1" />
@@ -503,18 +559,6 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="PurchaseOrder">
-              <PropertyRef Name="ClientID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Telephone_ToClient">
-          <End Type="ArquiaModel.Client" Role="Client" Multiplicity="1" />
-          <End Type="ArquiaModel.Telephone" Role="Telephone" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Client">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Telephone">
               <PropertyRef Name="ClientID" />
             </Dependent>
           </ReferentialConstraint>
@@ -553,6 +597,8 @@
           <Property Name="PayDate" Type="DateTime" Precision="0" />
           <Property Name="OtherTaxes" Type="Decimal" Precision="19" Scale="4" />
           <NavigationProperty Name="Invoice" Relationship="ArquiaModel.FK_ISpends_ToInvoice" FromRole="Spend" ToRole="Invoice" />
+          <Property Name="SpendTypeID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SpendType" Relationship="ArquiaModel.FK_ISpends_ToSpendType" FromRole="Spend" ToRole="SpendType" />
         </EntityType>
         <Association Name="FK_ISpends_ToInvoice">
           <End Type="ArquiaModel.Invoice" Role="Invoice" Multiplicity="0..1" />
@@ -585,6 +631,110 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="LastChangeRate" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
         </EntityType>
+        <EntityType Name="DebitNote">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryID" Type="Int32" Nullable="false" />
+          <Property Name="InvoiceID" Type="Int32" Nullable="false" />
+          <Property Name="StatusID" Type="Int32" Nullable="false" />
+          <Property Name="NoteDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="NoteNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ValueInPesos" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="ValueInDollars" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="IVA" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="ChangeRate" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="InvoiceTotal" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PayDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="InvoiceCategory" Relationship="ArquiaModel.FK_DebitNote_ToCategory" FromRole="DebitNote" ToRole="InvoiceCategory" />
+          <NavigationProperty Name="Invoice" Relationship="ArquiaModel.FK_DebitNote_ToInvoiceLine" FromRole="DebitNote" ToRole="Invoice" />
+          <NavigationProperty Name="InvoiceStatus" Relationship="ArquiaModel.FK_DebitNote_ToStatus" FromRole="DebitNote" ToRole="InvoiceStatus" />
+        </EntityType>
+        <Association Name="FK_DebitNote_ToCategory">
+          <End Type="ArquiaModel.InvoiceCategory" Role="InvoiceCategory" Multiplicity="1" />
+          <End Type="ArquiaModel.DebitNote" Role="DebitNote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InvoiceCategory">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DebitNote">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DebitNote_ToInvoiceLine">
+          <End Type="ArquiaModel.Invoice" Role="Invoice" Multiplicity="1" />
+          <End Type="ArquiaModel.DebitNote" Role="DebitNote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invoice">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DebitNote">
+              <PropertyRef Name="InvoiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DebitNote_ToStatus">
+          <End Type="ArquiaModel.InvoiceStatus" Role="InvoiceStatus" Multiplicity="1" />
+          <End Type="ArquiaModel.DebitNote" Role="DebitNote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InvoiceStatus">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DebitNote">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Contact">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Area" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="TelephoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="InternNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="ArquiaModel.FK_Contact_ToClient" FromRole="Contact" ToRole="Client" />
+        </EntityType>
+        <Association Name="FK_Contact_ToClient">
+          <End Type="ArquiaModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="ArquiaModel.Contact" Role="Contact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Contact">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SpendType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Spend" Relationship="ArquiaModel.FK_ISpends_ToSpendType" FromRole="SpendType" ToRole="Spend" />
+        </EntityType>
+        <Association Name="FK_ISpends_ToSpendType">
+          <End Type="ArquiaModel.SpendType" Role="SpendType" Multiplicity="1" />
+          <End Type="ArquiaModel.Spend" Role="Spend" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SpendType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Spend">
+              <PropertyRef Name="SpendTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -651,25 +801,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Telephones">
-            <EntityTypeMapping TypeName="ArquiaModel.Telephone">
-              <MappingFragment StoreEntitySet="Telephone">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
-                <ScalarProperty Name="Number" ColumnName="Number" />
-                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TelephoneTypes">
-            <EntityTypeMapping TypeName="ArquiaModel.TelephoneType">
-              <MappingFragment StoreEntitySet="TelephoneType">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Active" ColumnName="Active" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Client">
             <EntityTypeMapping TypeName="ArquiaModel.Client">
               <MappingFragment StoreEntitySet="Client">
@@ -698,6 +829,7 @@
           <EntitySetMapping Name="Spend">
             <EntityTypeMapping TypeName="ArquiaModel.Spend">
               <MappingFragment StoreEntitySet="Spend">
+                <ScalarProperty Name="SpendTypeID" ColumnName="SpendTypeID" />
                 <ScalarProperty Name="OtherTaxes" ColumnName="OtherTaxes" />
                 <ScalarProperty Name="PayDate" ColumnName="PayDate" />
                 <ScalarProperty Name="InvoiceTotal" ColumnName="InvoiceTotal" />
@@ -720,6 +852,48 @@
             <EntityTypeMapping TypeName="ArquiaModel.SystemConfiguration">
               <MappingFragment StoreEntitySet="SystemConfiguration">
                 <ScalarProperty Name="LastChangeRate" ColumnName="LastChangeRate" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DebitNote">
+            <EntityTypeMapping TypeName="ArquiaModel.DebitNote">
+              <MappingFragment StoreEntitySet="DebitNote">
+                <ScalarProperty Name="PayDate" ColumnName="PayDate" />
+                <ScalarProperty Name="InvoiceTotal" ColumnName="InvoiceTotal" />
+                <ScalarProperty Name="ChangeRate" ColumnName="ChangeRate" />
+                <ScalarProperty Name="IVA" ColumnName="IVA" />
+                <ScalarProperty Name="ValueInDollars" ColumnName="ValueInDollars" />
+                <ScalarProperty Name="ValueInPesos" ColumnName="ValueInPesos" />
+                <ScalarProperty Name="NoteNumber" ColumnName="NoteNumber" />
+                <ScalarProperty Name="NoteDate" ColumnName="NoteDate" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contact">
+            <EntityTypeMapping TypeName="ArquiaModel.Contact">
+              <MappingFragment StoreEntitySet="Contact">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="InternNumber" ColumnName="InternNumber" />
+                <ScalarProperty Name="TelephoneNumber" ColumnName="TelephoneNumber" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SpendType">
+            <EntityTypeMapping TypeName="ArquiaModel.SpendType">
+              <MappingFragment StoreEntitySet="SpendType">
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

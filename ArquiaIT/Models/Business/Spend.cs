@@ -29,7 +29,9 @@ namespace ArquiaIT.Models.Business
         public decimal InvoiceTotal { get; set; }
         public Nullable<System.DateTime> PayDate { get; set; }
         public Nullable<decimal> OtherTaxes { get; set; }
+        public int SpendTypeID { get; set; }
     
         public virtual Invoice Invoice { get; set; }
+        public virtual SpendType SpendType { get; set; }
     }
 }
